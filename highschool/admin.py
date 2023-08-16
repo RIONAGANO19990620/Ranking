@@ -1,3 +1,5 @@
 from django.contrib import admin
 
-# Register your models here.
+from highschool.models import HighSchool
+
+admin.site.register(HighSchool)

@@ -39,9 +39,12 @@ class DataManager:
             if name == '':
                 name = row['その他']
             try:
-                output_dict[row['偏差値']].append(name)
+                output_dict[int(float(row['偏差値']))].append(name)
             except:
-                output_dict[row['偏差値']] = [name]
+                try:
+                    output_dict[int(float(row['偏差値']))] = [name]
+                except:
+                    pass
         with open(output_path, mode="wt", encoding="utf-8") as f:
             json.dump(output_dict, f, ensure_ascii=False, indent=2)
 
