@@ -1,0 +1,55 @@
+/* サイト全体のフォント指定 */
+body {
+    font-family: sans-serif;
+    color: black;
+    background-size: 100vw 100vh;
+    background-position: right top;
+    background-repeat: no-repeat;
+}
+/*端末ごとに背景の表示方法変える*/
+/*縦持ちの場合*/
+@media (orientation: portrait) {
+    body {
+        background-size: 175vw 100vh;
+    }
+}
+
+.btn {
+    margin-left: auto;
+}
+
+.btn-primary {
+    background: #009999CC;
+    border-color: #009999CC;
+    /*color: #66CCCC; //ボタンのテキストの色*/
+}
+
+.btn-primary:hover {
+    background: #006666;
+    border-color: white;
+}
+
+.btn-primary:focus,
+.btn-primary:active, .btn-primary:active:focus, .btn-primary:active:hover, .btn-primary:active.focus,
+.btn-primary.active, .btn-primary.active:focus, .btn-primary.active:hover, .btn-primary.active.focus,
+.open > .dropdown-toggle.btn-primary,
+.open > .dropdown-toggle.btn-primary:hover,
+.open > .dropdown-toggle.btn-primary:focus,
+.open > .dropdown-toggle.btn-primary.focus,
+.btn-primary.disabled:hover, .btn-primary[disabled]:hover, fieldset[disabled] .btn-primary:hover,
+.btn-primary.disabled:focus, .btn-primary[disabled]:focus, fieldset[disabled] .btn-primary:focus,
+.btn-primary.disabled.focus, .btn-primary[disabled].focus, fieldset[disabled] .btn-primary.focus {
+    background: #009999CC;
+    border-color: #009999CC;
+    /*color: 好きな色; //ボタンの上にポインタを持ってきたり、クリックしたりした時のテキストの色*/
+}
+
+.btn-primary.outline {
+    border: 3px solid #009999CC; //アウトラインのみのボタンの線の色
+    /*color: #66CCCC; //アウトラインのみのボタンのテキストの色*/
+}
+.height {
+text-align: center; /* インライン要素の左右のセンタリングを指定する */
+display: table-cell; /* インライン要素をテーブルセル化する */
+vertical-align: middle; /* インライン要素の上下のセンタリングを指定する */
+}
