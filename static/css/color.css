@@ -1,0 +1,15 @@
+mark.mark1 {
+    background:linear-gradient(transparent 40%, red);
+}
+
+mark.mark2 {
+    background:linear-gradient(transparent 40%, yellow);
+}
+
+mark.mark3 {
+    background: linear-gradient(transparent 40%, aqua);
+}
+
+mark.mark4 {
+    background: linear-gradient(transparent 40%, greenyellow);
+}

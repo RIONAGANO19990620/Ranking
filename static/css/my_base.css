@@ -1,0 +1,180 @@
+/* サイト全体のフォント指定 */
+body {
+    font-family: sans-serif ;
+    color: black;
+    margin-bottom: 100px;
+}
+
+/*左右の指定するとき*/
+.left {
+      order: 1;
+    }
+
+.right {
+  order: 2;
+}
+
+/*サイト全体の基本位置*/
+.posit{
+    position: relative; /* 今の位置を基準 */
+    top: 100px; /* 上から100px */
+    margin-bottom: 100px;
+}
+
+/*detail画面の基本位置*/
+.detail-posit{
+    position: relative; /* 今の位置を基準 */
+    top: 30px; /* 上から100px */
+    margin-bottom: 100px;
+}
+
+/*list画面の基本1*/
+.list-posit {
+    margin-left: 10%;
+}
+
+/*ナビゲーションバー*/
+.navbar .navbar-expand{
+    margin: 0;
+    max-width: 100% !important;
+}
+
+/*ボタン関係*/
+.btn {
+    margin-left: auto;
+}
+
+.btn-primary {
+    background: #009999;
+    border-color: #009999;
+    /*color: #66CCCC; //ボタンのテキストの色*/
+}
+
+.btn-primary:hover {
+    background: #006666;
+    border-color: white;
+}
+
+
+.btn-warning:hover {
+    background: #cc9900;
+    border-color: white;
+}
+
+.btn-secondary:hover {
+    background: #333333;
+    border-color: white;
+}
+
+.btn-info {
+    background: #0033ff;
+    border-color: #0033ff;
+}
+
+.btn-info:hover {
+    background: #0033cc;
+    border-color: white;
+}
+
+.btn-danger:hover {
+    background: #cc3300;
+    border-color: white;
+}
+
+
+.btn-primary:focus,
+.btn-primary:active, .btn-primary:active:focus, .btn-primary:active:hover, .btn-primary:active.focus,
+.btn-primary.active, .btn-primary.active:focus, .btn-primary.active:hover, .btn-primary.active.focus,
+.open > .dropdown-toggle.btn-primary,
+.open > .dropdown-toggle.btn-primary:hover,
+.open > .dropdown-toggle.btn-primary:focus,
+.open > .dropdown-toggle.btn-primary.focus,
+.btn-primary.disabled:hover, .btn-primary[disabled]:hover, fieldset[disabled] .btn-primary:hover,
+.btn-primary.disabled:focus, .btn-primary[disabled]:focus, fieldset[disabled] .btn-primary:focus,
+.btn-primary.disabled.focus, .btn-primary[disabled].focus, fieldset[disabled] .btn-primary.focus {
+    background: #009999;
+    border-color: white;;
+    /*color: 好きな色; //ボタンの上にポインタを持ってきたり、クリックしたりした時のテキストの色*/
+}
+
+.btn-primary.outline {
+    border: 3px solid #009999; //アウトラインのみのボタンの線の色
+    /*color: #66CCCC; //アウトラインのみのボタンのテキストの色*/
+}
+
+
+/*table関係*/
+#my-table-wrapper {
+    width: 80%;
+  }
+
+/*チェッパー君*/
+.balloon {
+    position: relative;
+    display: inline-block;
+    margin: 1.5em 0;
+    padding: 7px 10px;
+    min-width: 100%;
+    max-width: 100%;
+    color: #555;
+    font-size: 16px;
+    background: #FFF;
+    border: solid 3px #555;
+    box-sizing: border-box;
+    border-radius: 15px;
+}
+
+.balloon:before {
+  content: "";
+  position: absolute;
+  bottom: -24px;
+  left: 50%;
+  margin-left: -15px;
+  border: 12px solid transparent;
+  border-top: 12px solid #FFF;
+  z-index: 2;
+}
+
+.balloon:after {
+  content: "";
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  margin-left: -17px;
+  border: 14px solid transparent;
+  border-top: 14px solid #555;
+  z-index: 1;
+}
+
+.balloon p {
+  margin: 0;
+  padding: 0;
+}
+
+img {
+    max-width: 300px;
+    max-height: 300px;
+}
+
+/*formの調整*/
+.form-control[readonly] {
+    background-color: #fff; /* 背景色を白色に変更 */
+}
+
+/*更新日とボタンの位置指定(friends_composition_detail)*/
+.edition {
+  display: flex;
+  justify-content: space-between;
+}
+
+/*スクロールできるブロック*/
+.scrollable-block {
+    /* width: 60vw; 任意の幅を設定 */
+    height: 40vh; /* 任意の高さを設定 */
+    overflow-y: scroll; /* スクロール可能な状態に設定 */
+    border: 1px solid #000; /* ボーダーを追加（任意） */
+    border-radius: 15px;
+    padding: 10px;
+    flex: 1; /* 各ボックスの幅を均等に分割 */
+    margin: 10px; /* ボックス間の余白を設定 */
+}

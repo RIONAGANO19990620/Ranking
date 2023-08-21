@@ -1,11 +1,20 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+  <!-- CSSの設定ファイル -->
+    <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
+
     <title>Corporation Search</title>
+    <!-- アイコンの設定 -->
+    <svg xmlns="http://www.w3.org/2000/svg" class="d-none"></svg>
+  <symbol id="bootstrap" viewBox="0 0 118 94">
     <style>
-        body {
-            text-align: center;
-        }
+
         .search-form {
             margin: 20px;
         }
@@ -40,6 +49,116 @@
     </style>
 </head>
 <body>
+<main class="d-flex">
+  <h1 class="visually-hidden">サイドバーの実例</h1>
+
+<!-- 折り畳み可能リストのサイドバー -->
+<div class="sidebar">
+  <div class="flex-shrink-0 p-3" style="width: 280px;">
+    <a class="d-flex pb-3 mb-3 text-decoration-none border-bottom">
+      <svg class="bi me-2" width="30" height="24"><use xlink:href="#bootstrap"/></svg>
+        <span class="fs-5 fw-semibold">業界サーチ</span>
+    </a>
+    <ul class="list-unstyled ps-0">
+      <li class="mb-1">
+        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0" data-bs-toggle="collapse" data-bs-target="#trade-collapse" aria-expanded="true">
+          商社
+        </button>
+        <div class="collapse show" id="trade-collapse">
+          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+            <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">総合</a></li>
+            <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">専門</a></li>
+          </ul>
+        </div>
+      </li>
+      <li class="mb-1">
+        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0" data-bs-toggle="collapse" data-bs-target="#consult-collapse" aria-expanded="false">
+          コンサル
+        </button>
+        <div class="collapse" id="consult-collapse">
+          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+            <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">戦略</a></li>
+            <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">総合</a></li>
+            <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">その他</a></li>
+          </ul>
+        </div>
+      </li>
+      <li class="mb-1">
+        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0" data-bs-toggle="collapse" data-bs-target="#finance-collapse" aria-expanded="false">
+          金融
+        </button>
+        <div class="collapse" id="finance-collapse">
+          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+              <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">外銀</a></li>
+              <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">メガバンク</a></li>
+              <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">証券</a></li>
+              <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">保険</a></li>
+              <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">カード・リース</a></li>
+              <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">アセマネ・信託</a></li>
+              <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">その他</a></li>
+          </ul>
+        </div>
+      </li>
+      <li class="mb-1">
+        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0" data-bs-toggle="collapse" data-bs-target="#it-collapse" aria-expanded="false">
+         IT
+        </button>
+        <div class="collapse" id="it-collapse">
+          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+              <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">シンクタンク</a></li>
+              <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">SIer</a></li>
+              <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">外資系</a></li>
+              <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">その他</a></li>
+          </ul>
+        </div>
+      </li>
+        <li class="mb-1">
+        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0" data-bs-toggle="collapse" data-bs-target="#maker-collapse" aria-expanded="false">
+         メーカー
+        </button>
+        <div class="collapse" id="maker-collapse">
+          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+              <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">食品</a></li>
+              <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">電機</a></li>
+              <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">自動車</a></li>
+              <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">鉄鋼</a></li>
+              <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">化学</a></li>
+              <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">その他</a></li>
+          </ul>
+        </div>
+      </li>
+        </li>
+        <li class="mb-1">
+        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0" data-bs-toggle="collapse" data-bs-target="#hekichi-collapse" aria-expanded="false">
+         いずへきち
+        </button>
+        <div class="collapse" id="hekichi-collapse">
+          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+              <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">横浜</a></li>
+              <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">神戸</a></li>
+              <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">京都</a></li>
+          </ul>
+        </div>
+      </li>
+      <li class="border-top my-3"></li>
+      <li class="mb-1">
+        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0" data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false">
+          アカウント
+        </button>
+        <div class="collapse" id="account-collapse">
+          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+            <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">新プロジェクト...</a></li>
+            <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">プロフィール</a></li>
+            <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">設定</a></li>
+            <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">サインアウト</a></li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="main-content">
     <h1>Corporation Search</h1>
     <form class="search-form" method="get">
         <input class="search-input" type="text" name="query" value="{{ query }}" placeholder="企業名or就職偏差値">
@@ -66,5 +185,9 @@
         {% endif %}
     </div>
     <a href="high_school">高校さんへ</a>
+</div>
 </body>
+</main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 </html>
