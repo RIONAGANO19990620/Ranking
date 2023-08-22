@@ -82,3 +82,18 @@
 
 /* Firefox */
 /* ファイアフォックスでは現在直接のカスタマイズはサポートされていません */
+
+/* アカウントメニューのスタイル */
+.account-menu {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 280px;
+  background-color: #242124; /* メニューの背景色 */
+  padding: 10px; /* 適宜調整 */
+}
+
+/* メインコンテンツの下にスペースを確保 */
+.main-content {
+  padding-bottom: 60px; /* アカウントメニューの高さ + 余白分 */
+}
