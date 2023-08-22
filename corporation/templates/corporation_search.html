@@ -61,7 +61,7 @@
 
 <!-- 折り畳み可能リストのサイドバー -->
 <div class="sidebar">
-  <div class="flex-shrink-0 p-3" style="width: 280px;">
+  <div class="flex-shrink-0 p-3" style="width: 280px; margin-bottom: 100px">
     <p class="d-flex pb-3 mb-3 border-bottom">
       <svg class="bi me-2" width="30" height="24"><use xlink:href="#bootstrap"/></svg>
         <span class="fs-5 fw-semibold"><strong>業界サーチ</strong></span>
@@ -73,7 +73,7 @@
         </button>
         <div class="collapse show" id="trade-collapse">
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-            <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">総合</a></li>
+            <li><a href="{% url 'corporation' %}?query=三菱商事 三井物産 伊藤忠商事　住友商事" class="link-body-emphasis d-inline-flex text-decoration-none rounded">総合</a></li>
             <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">専門</a></li>
           </ul>
         </div>
@@ -84,8 +84,8 @@
         </button>
         <div class="collapse" id="consult-collapse">
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-            <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">戦略</a></li>
-            <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">総合</a></li>
+            <li><a href="{% url 'corporation' %}?query=McKinsey BCG Bain ATK Strategy& Roland ADL ZSA EYParthenon IGPI (戦略)" class="link-body-emphasis d-inline-flex text-decoration-none rounded">戦略</a></li>
+            <li><a href="{% url 'corporation' %}?query=コンサル"" class="link-body-emphasis d-inline-flex text-decoration-none rounded">総合</a></li>
             <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">その他</a></li>
           </ul>
         </div>
@@ -97,11 +97,11 @@
         <div class="collapse" id="finance-collapse">
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
               <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">外銀</a></li>
-              <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">メガバンク</a></li>
-              <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">証券</a></li>
-              <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">保険</a></li>
-              <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">カード・リース</a></li>
-              <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">アセマネ・信託</a></li>
+              <li><a href="{% url 'corporation' %}?query=三菱UFJ銀行 三井住友銀行 みずほFG"" class="link-body-emphasis d-inline-flex text-decoration-none rounded">メガバンク</a></li>
+              <li><a href="{% url 'corporation' %}?query=証券 證券"" class="link-body-emphasis d-inline-flex text-decoration-none rounded">証券</a></li>
+              <li><a href="{% url 'corporation' %}?query=保険" class="link-body-emphasis d-inline-flex text-decoration-none rounded">保険</a></li>
+              <li><a href="{% url 'corporation' %}?query=カード リース"" class="link-body-emphasis d-inline-flex text-decoration-none rounded">カード・リース</a></li>
+              <li><a href="{% url 'corporation' %}?query=アセット 投信 信託"" class="link-body-emphasis d-inline-flex text-decoration-none rounded">アセマネ・信託</a></li>
               <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">その他</a></li>
           </ul>
         </div>
@@ -112,7 +112,7 @@
         </button>
         <div class="collapse" id="it-collapse">
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-              <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">シンクタンク</a></li>
+              <li><a href="{% url 'corporation' %}?query=総合研究所 総研 リサーチ" class="link-body-emphasis d-inline-flex text-decoration-none rounded">シンクタンク</a></li>
               <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">SIer</a></li>
               <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">外資系</a></li>
               <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">その他</a></li>
@@ -141,7 +141,7 @@
         </button>
         <div class="collapse" id="hekichi-collapse">
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-              <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">横浜</a></li>
+              <li><a href="{% url 'corporation' %}?query=(AE/TE)" class="link-body-emphasis d-inline-flex text-decoration-none rounded">横浜</a></li>
               <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">神戸</a></li>
               <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">京都</a></li>
           </ul>
@@ -184,7 +184,7 @@
 
 <!-- サイドバー下部 -->
 <!-- アカウントメニュー -->
-<div class="account-menu">
+<div class="account-menu border-top">
   <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0" data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false">
           アカウント
         </button>
