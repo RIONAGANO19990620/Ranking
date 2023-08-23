@@ -19,11 +19,11 @@ def search_corporation(request):
                 clean_words.append(word[1:-1])
 
         for clean_word in clean_words:
-            q_objects |= Q(name__iexact=clean_word)  # 各キーワードに対してQオブジェクトを結合
+            q_objects |= Q(name__iexact=clean_word)  # 完全一致企業
 
         lax_words = [x for x in words if x not in clean_words]
         for keyword in lax_words:
-            q_objects |= Q(name__icontains=keyword)  # 各キーワードに対してQオブジェクトを結合
+            q_objects |= Q(name__icontains=keyword)  # 部分一致企業
 
         corporations = Corporation.objects.filter(q_objects).order_by('-value')
     else:
