@@ -15,7 +15,7 @@ def search_corporation(request):
         clean_words = []
 
         for word in words:
-            if word.startswith('"') and word.endswith('"'):
+            if word.startswith('"') and word.endswith('"'):  # 完全一致させたい場合は""ではさむ
                 clean_words.append(word[1:-1])
 
         for clean_word in clean_words:
