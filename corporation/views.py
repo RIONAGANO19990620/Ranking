@@ -16,7 +16,7 @@ def search_corporation(request):
         for keyword in keywords:
             q_objects |= Q(name__icontains=keyword)  # 各キーワードに対してQオブジェクトを結合
 
-        corporations = Corporation.objects.filter(q_objects)
+        corporations = Corporation.objects.filter(q_objects).order_by('-value')
     else:
         corporations = None
 
