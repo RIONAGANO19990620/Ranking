@@ -68,10 +68,10 @@
     </p>
     <ul class="list-unstyled ps-0">
       <li class="mb-1">
-        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0" data-bs-toggle="collapse" data-bs-target="#trade-collapse" aria-expanded="true">
+        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0" data-bs-toggle="collapse" data-bs-target="#trade-collapse" aria-expanded="false">
           商社
         </button>
-        <div class="collapse show" id="trade-collapse">
+        <div class="collapse" id="trade-collapse">
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
             <li><a href="{% url 'corporation' %}?query=三菱商事 三井物産 伊藤忠商事　住友商事" class="link-body-emphasis d-inline-flex text-decoration-none rounded">総合</a></li>
             <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">専門</a></li>
@@ -136,7 +136,7 @@
       </li>
         </li>
         <li class="mb-1">
-        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0" data-bs-toggle="collapse" data-bs-target="#hekichi-collapse" aria-expanded="false">
+        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0" data-bs-toggle="collapse" data-bs-target="#hekichi-collapse" aria-expanded="undefined">
          いずへきち
         </button>
         <div class="collapse" id="hekichi-collapse">
@@ -144,6 +144,18 @@
               <li><a href="{% url 'corporation' %}?query=(AE/TE)" class="link-body-emphasis d-inline-flex text-decoration-none rounded">横浜</a></li>
               <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">神戸</a></li>
               <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">京都</a></li>
+          </ul>
+        </div>
+      </li>
+        <li class="mb-1">
+        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0" data-bs-toggle="collapse" data-bs-target="#hekichi-collapse" aria-expanded="undefined">
+         インフラ
+        </button>
+        <div class="collapse" id="hekichi-collapse">
+          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+              <li><a href="{% url 'corporation' %}?query=電力" class="link-body-emphasis d-inline-flex text-decoration-none rounded">電力</a></li>
+               <li><a href="{% url 'corporation' %}?query=ガス" class="link-body-emphasis d-inline-flex text-decoration-none rounded">ガス</a></li>
+              <li><a href="{% url 'corporation' %}?query=JR" class="link-body-emphasis d-inline-flex text-decoration-none rounded">鉄道</a></li>
           </ul>
         </div>
       </li>
