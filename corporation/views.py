@@ -10,10 +10,19 @@ def search_corporation(request):
         corporations = Corporation.objects.filter(value=int(query))
 
     elif query:
-        keywords = query.split()  # クエリを空白で分割してキーワードのリストを作成
         q_objects = Q()  # 空のQオブジェクトを作成
+        words = query.split()  # クエリを空白で分割してキーワードのリストを作成
+        clean_words = []
 
-        for keyword in keywords:
+        for word in words:
+            if word.startswith('"') and word.endswith('"'):
+                clean_words.append(word[1:-1])
+
+        for clean_word in clean_words:
+            q_objects |= Q(name__iexact=clean_word)  # 各キーワードに対してQオブジェクトを結合
+
+        lax_words = [x for x in words if x not in clean_words]
+        for keyword in lax_words:
             q_objects |= Q(name__icontains=keyword)  # 各キーワードに対してQオブジェクトを結合
 
         corporations = Corporation.objects.filter(q_objects).order_by('-value')
