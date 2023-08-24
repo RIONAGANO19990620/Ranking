@@ -15,7 +15,7 @@ def search_highschool(request):
         clean_words = []
 
         for word in words:
-            if word.startswith('"') and word.endswith('"'):  # 完全一致させたい場合は""ではさむ
+            if word.startswith('"') or word.startswith('“') and word.endswith('"'):  # 完全一致させたい場合は""ではさむ
                 clean_words.append(word[1:-1])
 
         for clean_word in clean_words:
@@ -24,6 +24,10 @@ def search_highschool(request):
         lax_words = [x for x in words if x not in clean_words]
         for keyword in lax_words:
             q_objects |= Q(name__icontains=keyword)  # 部分一致高校
+
+            if keyword.startswith("-"):
+                keyword = keyword.replace("-", "")
+                q_objects = q_objects & ~Q(name__icontains=keyword)  # -で単語除去
 
         high_schools = HighSchool.objects.filter(q_objects).order_by('-value')
 
