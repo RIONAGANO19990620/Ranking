@@ -1,0 +1,59 @@
+{% include 'university_base.html' %}
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<title>就職偏差値サーチ</title>
+</head>
+<body>
+<!--ここからメイン-->
+<div class="main-content">
+    <h1>University Search</h1>
+    <form class="search-form" method="get">
+        <input class="search-input" type="text" name="query" value="{{ query }}" placeholder="企業名or就職偏差値">
+        <button class="search-button btn btn-primary" type="submit">Search</button>
+    </form>
+<div style="text-align: right; margin-right: 20px">
+    <a href="../">企業さんへ</a>
+    <a href="./high_school">高校さんへ</a>
+</div>
+    <div class="search-results">
+        {% if universitys %}
+            <h2>Search Results:</h2>
+            <table>
+                <tr>
+                    <th><font color="#333333">企業名(職種)</font></th>
+                    <th><font color="#333333">就職偏差値</font></th>
+                </tr>
+                {% for university in universitys %}
+                    <tr>
+                        <td>{{ university.name }}</td>
+                        <td>{{ university.value }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% else %}
+            <p class="no-results">No results found.</p>
+        {% endif %}
+    </div>
+</div>
+
+<!-- サイドバー下部 -->
+<!-- アカウントメニュー -->
+<div class="account-menu border-top">
+  <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0" data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false">
+          幹部様はこちら
+        </button>
+        <div class="collapse" id="account-collapse">
+          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+    <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">新プロジェクト</a></li>
+    <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">プロフィール</a></li>
+    <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">設定</a></li>
+    <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">ログイン</a></li>
+  </ul>
+</div>
+    <div style="margin-top: 10px">© 2023</div>
+</div>
+
+</body>
+</html>
