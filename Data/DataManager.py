@@ -48,8 +48,29 @@ class DataManager:
         with open(output_path, mode="wt", encoding="utf-8") as f:
             json.dump(output_dict, f, ensure_ascii=False, indent=2)
 
+    @classmethod
+    def university_manager(cls, input_path: Path, output_path: Path):
+        first_dict = {}
+        data = pd.read_csv(input_path, encoding="utf-8")
+
+        for i in range(len(data)):
+            for j in range(len(data.columns) - 1):
+                if data.iloc[(i, 0)] not in first_dict:
+                    first_dict[data.iloc[(i, 0)]] = [data.iloc[(i, 1)]]
+                else:
+                    first_dict[data.iloc[(i, 0)]].append(data.iloc[(i, j + 1)])
+
+        output_dict = {key: [value for value in values if not pd.isna(value)] for key, values in first_dict.items()}
+
+        with open(output_path, mode="wt", encoding="utf-8") as f:
+            json.dump(output_dict, f, ensure_ascii=False, indent=2)
+
 
 if __name__ == '__main__':
-    input_path = Path('/Users/naganorio/Desktop/Ranking/Data/highschool.csv')
-    output_path = Path('/Users/naganorio/Desktop/Ranking/Data/high_school.json')
+    input_path = Path('/Users/taguchinaoki/Ranking/Data/highschool.csv')
+    output_path = Path('/Users/taguchinaoki/Ranking/Data/high_school.json')
     DataManager.high_school_manager(input_path, output_path)
+
+    input_path = Path('/Users/taguchinaoki/Ranking/Data/university.csv')
+    output_path = Path('/Users/taguchinaoki/Ranking/Data/university.json')
+    DataManager.university_manager(input_path, output_path)
