@@ -18,17 +18,17 @@
     <a href="./high_school">高校さんへ</a>
 </div>
     <div class="search-results">
-        {% if universitys %}
+        {% if universities %}
             <h2>Search Results:</h2>
             <table>
                 <tr>
                     <th><font color="#333333">企業名(職種)</font></th>
                     <th><font color="#333333">就職偏差値</font></th>
                 </tr>
-                {% for university in universitys %}
+                {% for university in universities %}
                     <tr>
                         <td>{{ university.name }}</td>
-                        <td>{{ university.value }}</td>
+                        <td>{{ university.rank }}</td>
                     </tr>
                 {% endfor %}
             </table>

@@ -29,7 +29,7 @@ def search_university(request):
                 keyword = keyword.replace("-", "")
                 q_objects = q_objects & ~Q(name__icontains=keyword)  # -で単語除去
 
-        universities = University.objects.filter(q_objects).order_by('-value')  # 偏差値順に並び替えて検索
+        universities = University.objects.filter(q_objects)
     else:
         universities = None
 

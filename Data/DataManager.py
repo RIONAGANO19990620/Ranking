@@ -62,8 +62,19 @@ class DataManager:
 
         output_dict = {key: [value for value in values if not pd.isna(value)] for key, values in first_dict.items()}
 
+        output = []
+        for rank, names in output_dict.items():
+            for name in names:
+                output.append({
+                    "model": "university.university",
+                    "fields": {
+                        "name": name,
+                        "rank": rank
+                    }
+                })
+
         with open(output_path, mode="wt", encoding="utf-8") as f:
-            json.dump(output_dict, f, ensure_ascii=False, indent=2)
+            json.dump(output, f, ensure_ascii=False, indent=2)
 
 
 if __name__ == '__main__':
