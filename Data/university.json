@@ -1,93 +1,331 @@
-{
-  "S1": [
-    "東京"
-  ],
-  "S2": [],
-  "S3": [
-    "京都"
-  ],
-  "S4": [
-    "一橋",
-    "東京工業"
-  ],
-  "S5": [],
-  "A1": [
-    "大阪"
-  ],
-  "A2": [
-    "気象大"
-  ],
-  "A3": [
-    "名古屋",
-    "東北"
-  ],
-  "A4": [
-    "神戸",
-    "九州",
-    "北海道"
-  ],
-  "A5": [
-    "筑波",
-    "東京外国語",
-    "国際教養"
-  ],
-  "B1": [
-    "横浜国立",
-    "お茶の水女子"
-  ],
-  "B2": [
-    "千葉",
-    "大阪公立",
-    "東京農工"
-  ],
-  "B3": [
-    "広島",
-    "電気通信",
-    "京都工芸繊維",
-    "名古屋工業"
-  ],
-  "B4": [
-    "岡山",
-    "奈良女子",
-    "都立大"
-  ],
-  "B5": [
-    "神戸市立外国語",
-    "京都府立"
-  ],
-  "C1": [
-    "金沢",
-    "東京学芸",
-    "名古屋市立"
-  ],
-  "C2": [
-    "熊本",
-    "横浜市立",
-    "防衛",
-    "岐阜薬科",
-    "埼玉"
-  ],
-  "C3": [
-    "航空保安",
-    "海上保安",
-    "静岡",
-    "東京海洋",
-    "九州工業"
-  ],
-  "C4": [
-    "信州",
-    "岐阜"
-  ],
-  "C5": [
-    "長崎",
-    "新潟",
-    "滋賀"
-  ],
-  "D1": [
-    "三重"
-  ],
-  "D2": [],
-  "D3": [],
-  "D4": [],
-  "D5": []
-}
+[
+  {
+    "model": "university.university",
+    "fields": {
+      "name": "東京",
+      "rank": "S1"
+    }
+  },
+  {
+    "model": "university.university",
+    "fields": {
+      "name": "京都",
+      "rank": "S3"
+    }
+  },
+  {
+    "model": "university.university",
+    "fields": {
+      "name": "一橋",
+      "rank": "S4"
+    }
+  },
+  {
+    "model": "university.university",
+    "fields": {
+      "name": "東京工業",
+      "rank": "S4"
+    }
+  },
+  {
+    "model": "university.university",
+    "fields": {
+      "name": "大阪",
+      "rank": "A1"
+    }
+  },
+  {
+    "model": "university.university",
+    "fields": {
+      "name": "気象大",
+      "rank": "A2"
+    }
+  },
+  {
+    "model": "university.university",
+    "fields": {
+      "name": "名古屋",
+      "rank": "A3"
+    }
+  },
+  {
+    "model": "university.university",
+    "fields": {
+      "name": "東北",
+      "rank": "A3"
+    }
+  },
+  {
+    "model": "university.university",
+    "fields": {
+      "name": "神戸",
+      "rank": "A4"
+    }
+  },
+  {
+    "model": "university.university",
+    "fields": {
+      "name": "九州",
+      "rank": "A4"
+    }
+  },
+  {
+    "model": "university.university",
+    "fields": {
+      "name": "北海道",
+      "rank": "A4"
+    }
+  },
+  {
+    "model": "university.university",
+    "fields": {
+      "name": "筑波",
+      "rank": "A5"
+    }
+  },
+  {
+    "model": "university.university",
+    "fields": {
+      "name": "東京外国語",
+      "rank": "A5"
+    }
+  },
+  {
+    "model": "university.university",
+    "fields": {
+      "name": "国際教養",
+      "rank": "A5"
+    }
+  },
+  {
+    "model": "university.university",
+    "fields": {
+      "name": "横浜国立",
+      "rank": "B1"
+    }
+  },
+  {
+    "model": "university.university",
+    "fields": {
+      "name": "お茶の水女子",
+      "rank": "B1"
+    }
+  },
+  {
+    "model": "university.university",
+    "fields": {
+      "name": "千葉",
+      "rank": "B2"
+    }
+  },
+  {
+    "model": "university.university",
+    "fields": {
+      "name": "大阪公立",
+      "rank": "B2"
+    }
+  },
+  {
+    "model": "university.university",
+    "fields": {
+      "name": "東京農工",
+      "rank": "B2"
+    }
+  },
+  {
+    "model": "university.university",
+    "fields": {
+      "name": "広島",
+      "rank": "B3"
+    }
+  },
+  {
+    "model": "university.university",
+    "fields": {
+      "name": "電気通信",
+      "rank": "B3"
+    }
+  },
+  {
+    "model": "university.university",
+    "fields": {
+      "name": "京都工芸繊維",
+      "rank": "B3"
+    }
+  },
+  {
+    "model": "university.university",
+    "fields": {
+      "name": "名古屋工業",
+      "rank": "B3"
+    }
+  },
+  {
+    "model": "university.university",
+    "fields": {
+      "name": "岡山",
+      "rank": "B4"
+    }
+  },
+  {
+    "model": "university.university",
+    "fields": {
+      "name": "奈良女子",
+      "rank": "B4"
+    }
+  },
+  {
+    "model": "university.university",
+    "fields": {
+      "name": "都立大",
+      "rank": "B4"
+    }
+  },
+  {
+    "model": "university.university",
+    "fields": {
+      "name": "神戸市立外国語",
+      "rank": "B5"
+    }
+  },
+  {
+    "model": "university.university",
+    "fields": {
+      "name": "京都府立",
+      "rank": "B5"
+    }
+  },
+  {
+    "model": "university.university",
+    "fields": {
+      "name": "金沢",
+      "rank": "C1"
+    }
+  },
+  {
+    "model": "university.university",
+    "fields": {
+      "name": "東京学芸",
+      "rank": "C1"
+    }
+  },
+  {
+    "model": "university.university",
+    "fields": {
+      "name": "名古屋市立",
+      "rank": "C1"
+    }
+  },
+  {
+    "model": "university.university",
+    "fields": {
+      "name": "熊本",
+      "rank": "C2"
+    }
+  },
+  {
+    "model": "university.university",
+    "fields": {
+      "name": "横浜市立",
+      "rank": "C2"
+    }
+  },
+  {
+    "model": "university.university",
+    "fields": {
+      "name": "防衛",
+      "rank": "C2"
+    }
+  },
+  {
+    "model": "university.university",
+    "fields": {
+      "name": "岐阜薬科",
+      "rank": "C2"
+    }
+  },
+  {
+    "model": "university.university",
+    "fields": {
+      "name": "埼玉",
+      "rank": "C2"
+    }
+  },
+  {
+    "model": "university.university",
+    "fields": {
+      "name": "航空保安",
+      "rank": "C3"
+    }
+  },
+  {
+    "model": "university.university",
+    "fields": {
+      "name": "海上保安",
+      "rank": "C3"
+    }
+  },
+  {
+    "model": "university.university",
+    "fields": {
+      "name": "静岡",
+      "rank": "C3"
+    }
+  },
+  {
+    "model": "university.university",
+    "fields": {
+      "name": "東京海洋",
+      "rank": "C3"
+    }
+  },
+  {
+    "model": "university.university",
+    "fields": {
+      "name": "九州工業",
+      "rank": "C3"
+    }
+  },
+  {
+    "model": "university.university",
+    "fields": {
+      "name": "信州",
+      "rank": "C4"
+    }
+  },
+  {
+    "model": "university.university",
+    "fields": {
+      "name": "岐阜",
+      "rank": "C4"
+    }
+  },
+  {
+    "model": "university.university",
+    "fields": {
+      "name": "長崎",
+      "rank": "C5"
+    }
+  },
+  {
+    "model": "university.university",
+    "fields": {
+      "name": "新潟",
+      "rank": "C5"
+    }
+  },
+  {
+    "model": "university.university",
+    "fields": {
+      "name": "滋賀",
+      "rank": "C5"
+    }
+  },
+  {
+    "model": "university.university",
+    "fields": {
+      "name": "三重",
+      "rank": "D1"
+    }
+  }
+]
