@@ -3,14 +3,14 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<title>就職偏差値サーチ</title>
+<title>大学格付けサーチ</title>
 </head>
 <body>
 <!--ここからメイン-->
 <div class="main-content">
     <h1>University Search</h1>
     <form class="search-form" method="get">
-        <input class="search-input" type="text" name="query" value="{{ query }}" placeholder="企業名or就職偏差値">
+        <input class="search-input" type="text" name="query" value="{{ query }}" placeholder="企業名or大学格付け">
         <button class="search-button btn btn-primary" type="submit">Search</button>
     </form>
 <div style="text-align: right; margin-right: 20px">
@@ -23,7 +23,7 @@
             <table>
                 <tr>
                     <th><font color="#333333">企業名(職種)</font></th>
-                    <th><font color="#333333">就職偏差値</font></th>
+                    <th><font color="#333333">大学格付け</font></th>
                 </tr>
                 {% for university in universities %}
                     <tr>

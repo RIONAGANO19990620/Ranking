@@ -70,10 +70,18 @@
         <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0" data-bs-toggle="collapse" data-bs-target="#group-collapse" aria-expanded="false">
           学歴群
         </button>
-        <div class="collapse" id="group-collapse">
-          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-            <li><a href='{% url 'university:university' %}?query=' class="link-body-emphasis d-inline-flex text-decoration-none rounded">東京一工</a></li>
-            <li><a href="{% url 'university:university' %}?query=" class="link-body-emphasis d-inline-flex text-decoration-none rounded">旧帝</a></li>
+            <div class="collapse" id="group-collapse">
+          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1">
+            <li><a href='{% url 'university:university' %}?query="東京" "京都" 東京工業 一橋' class="link-body-emphasis d-inline-flex text-decoration-none rounded">東京一工</a></li>
+            <li><a href='{% url 'university:university' %}?query="東京" "京都" "大阪" "東北" "名古屋" "北海道" "九州"' class="link-body-emphasis d-inline-flex text-decoration-none rounded">旧帝</a></li>
+            <li><a href='{% url 'university:university' %}?query="筑波" "横浜国立" "千葉"' class="link-body-emphasis d-inline-flex text-decoration-none rounded">筑横千</a></li>
+            <li><a href='{% url 'university:university' %}?query=早稲田 慶応 上智 東京理科 国際基督教' class="link-body-emphasis d-inline-flex text-decoration-none rounded">早慶上理ICU</a></li>
+              <li><a href='{% url 'university:university' %}?query=金沢 岡山 千葉 広島' class="link-body-emphasis d-inline-flex text-decoration-none rounded">金岡千広</a></li>
+              <li><a href='{% url 'university:university' %}?query=電気通信 東京農工 名古屋工業 京都工芸繊維' class="link-body-emphasis d-inline-flex text-decoration-none rounded">電農名繊</a></li>
+              <li><a href='{% url 'university:university' %}?query=埼玉 新潟 静岡 信州 滋賀' class="link-body-emphasis d-inline-flex text-decoration-none rounded">5S</a></li>
+              <li><a href='{% url 'university:university' %}?query=明治 青山 立教 中央 法政' class="link-body-emphasis d-inline-flex text-decoration-none rounded">MARCH</a></li>
+              <li><a href='{% url 'university:university' %}?query=関西学院 関西 同志社 立命館' class="link-body-emphasis d-inline-flex text-decoration-none rounded">関関同立</a></li>
+              <li><a href='{% url 'university:university' %}?query=佐賀 鳥取 秋田 琉球 島根' class="link-body-emphasis d-inline-flex text-decoration-none rounded">STARS</a></li>
           </ul>
         </div>
       </li>
@@ -82,7 +90,7 @@
           地域別ランキング
         </button>
         <div class="collapse" id="region-collapse">
-          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1">
             <li><a href="{% url 'university:university' %}?query=McKinsey BCG Bain ATK Strategy& Roland ADL ZSA EYParthenon IGPI (戦略)" class="link-body-emphasis d-inline-flex text-decoration-none rounded">戦略</a></li>
             <li><a href="{% url 'university:university' %}?query=コンサル" class="link-body-emphasis d-inline-flex text-decoration-none rounded">総合</a></li>
             <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">その他</a></li>
