@@ -1,13 +1,17 @@
 from django.shortcuts import render
 from .models import University
 from django.db.models import Q
+import re
 
 
 def search_university(request):
     query = request.GET.get('query', '')  # Get the user input from the query parameter
 
-    if query.isdigit():
-        universities = University.objects.filter(value=int(query))
+    if query=="all":
+        universities = University.objects.filter()
+
+    elif re.match(r'^[a-zA-Z]', query):
+        universities = University.objects.filter(rank__icontains=query)
 
     elif query:
         q_objects = Q()  # 空のQオブジェクトを作成
