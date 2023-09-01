@@ -6,8 +6,15 @@ from django.db.models import Q
 def search_highschool(request):
     query = request.GET.get('query', '')  # Get the user input from the query parameter
 
-    if query.isdigit():
-        high_schools = HighSchool.objects.filter(value=int(query))
+    if query == "all":
+        high_schools = HighSchool.objects.all().order_by('-value')
+
+    elif query and query[0].isdigit():
+        q_objects = Q()  # 空のQオブジェクトを作成
+        words = query.split()
+        for keyword in words:
+            q_objects |= Q(value=keyword)
+        high_schools = HighSchool.objects.filter(q_objects).order_by('-value')
 
     elif query:
         words = query.split()  # クエリを空白で分割してキーワードのリストを作成

@@ -6,8 +6,15 @@ from django.db.models import Q
 def search_corporation(request):
     query = request.GET.get('query', '')  # Get the user input from the query parameter
 
-    if query.isdigit():
-        corporations = Corporation.objects.filter(value=int(query))
+    if query=="all":
+        corporations = Corporation.objects.all().order_by('-value')
+
+    elif query and query[0].isdigit():
+        q_objects = Q()  # 空のQオブジェクトを作成
+        words = query.split()
+        for keyword in words:
+            q_objects |= Q(value=keyword)
+        corporations = Corporation.objects.filter(q_objects).order_by('-value')
 
     elif query:
         q_objects = Q()  # 空のQオブジェクトを作成

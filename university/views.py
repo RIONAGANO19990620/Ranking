@@ -8,7 +8,7 @@ def search_university(request):
     query = request.GET.get('query', '')  # Get the user input from the query parameter
 
     if query=="all":
-        universities = University.objects.filter()
+        universities = University.objects.all()
 
     elif re.match(r'^[a-zA-Z]', query):
         universities = University.objects.filter(rank__icontains=query)
