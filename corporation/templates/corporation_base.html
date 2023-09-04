@@ -99,7 +99,7 @@
                     <div class="collapse" id="consult-collapse">
                         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 ">
                             <li>
-                                <a href="{% url 'corporation' %}?query=McKinsey BCG Bain ATK Strategy& Roland ADL ZSA EYParthenon IGPI (戦略)"
+                                <a href="{% url 'corporation' %}?query=ZSA EYParthenon IGPI (戦略) ADL Roland McKinsey BCG Bain ATK Strategy&"
                                    class="link-body-emphasis d-inline-flex text-decoration-none rounded">戦略</a></li>
                             <li><a href="{% url 'corporation' %}?query=コンサル"
                                    class="link-body-emphasis d-inline-flex text-decoration-none rounded">総合</a></li>
@@ -115,8 +115,10 @@
                     </button>
                     <div class="collapse" id="finance-collapse">
                         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 ">
-                            <li><a href="#"
+                            <li><a href="{% url 'corporation' %}?query=Capital Goldman Morgan Bankof Citi UBS Deutsche Barclays Fidelity BNP SociétéGénérale CréditAgricole HSBC WellsFargo"
                                    class="link-body-emphasis d-inline-flex text-decoration-none rounded">外銀</a></li>
+                            <li><a href="{% url 'corporation' %}?query=Point72 GSAM JPMORGAN(AM) UBS(AM) Fidelity DWS BlackRock Lazard"
+                                   class="link-body-emphasis d-inline-flex text-decoration-none rounded">HF・外資アセマネ</a></li>
                             <li><a href="{% url 'corporation' %}?query=三菱UFJ銀行 三井住友銀行 みずほFG"
                                    class="link-body-emphasis d-inline-flex text-decoration-none rounded">メガバンク</a></li>
                             <li><a href="{% url 'corporation' %}?query=証券 證券"
@@ -143,9 +145,9 @@
                         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 ">
                             <li><a href="{% url 'corporation' %}?query=総合研究所 総研 リサーチ"
                                    class="link-body-emphasis d-inline-flex text-decoration-none rounded">シンクタンク</a></li>
-                            <li><a href="#"
+                            <li><a href='{% url 'corporation' %}?query=NRI "NTTデータ" 電通国際 日鉄ソリュ'
                                    class="link-body-emphasis d-inline-flex text-decoration-none rounded">SIer</a></li>
-                            <li><a href="#"
+                            <li><a href="{% url 'corporation' %}?query=Cisco AWS Google Amazon Microsoft salesforce"
                                    class="link-body-emphasis d-inline-flex text-decoration-none rounded">外資系</a></li>
                             <li><a href="#"
                                    class="link-body-emphasis d-inline-flex text-decoration-none rounded">その他</a></li>
@@ -262,8 +264,6 @@
             <!-- 偏差値別検索 END -->
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
-            crossorigin="anonymous"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js'  %}"></script>
 </body>
 </html>
