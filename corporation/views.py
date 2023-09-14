@@ -3,7 +3,6 @@ from .models import Corporation
 from django.db.models import Q
 import re
 
-
 def search_corporation(request):
     query = request.GET.get('query', '')  # Get the user input from the query parameter
 
@@ -11,6 +10,7 @@ def search_corporation(request):
         corporations = Corporation.objects.all().order_by('-value')
 
     elif query and query.replace(" ", "")[0:].isdigit():  # スペースを除いた全ての文字が数字の場合
+
         q_objects = Q()  # 空のQオブジェクトを作成
         words = query.split()
         for keyword in words:
