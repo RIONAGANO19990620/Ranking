@@ -1,66 +1,79 @@
-.dropdown-toggle { outline: 0; }
+.dropdown-toggle {
+    outline: 0;
+}
 
 /* 折り畳み可能リストのサイドバー用 */
 .btn-toggle {
-  padding: .25rem .5rem;
-  font-weight: 600;
-  color: var(--bs-emphasis-color);
-  background-color: transparent;
+    padding: .25rem .5rem;
+    font-weight: 600;
+    color: var(--bs-emphasis-color);
+    background-color: transparent;
 }
+
 .btn-toggle:hover,
 .btn-toggle:focus {
-  color: rgba(var(--bs-emphasis-color-rgb), .85);
-  background-color: var(--bs-tertiary-bg);
+    color: rgba(var(--bs-emphasis-color-rgb), .85);
+    background-color: var(--bs-tertiary-bg);
 }
 
 .btn-toggle::before {
-  width: 1.25em;
-  line-height: 0;
-  content: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 14l6-6-6-6'/%3e%3c/svg%3e");
-  transition: transform .35s ease;
-  transform-origin: .5em 50%;
+    width: 1.25em;
+    line-height: 0;
+    content: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 14l6-6-6-6'/%3e%3c/svg%3e");
+    transition: transform .35s ease;
+    transform-origin: .5em 50%;
 }
 
 [data-bs-theme="dark"] .btn-toggle::before {
-  content: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='rgba%28255,255,255,.5%29' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 14l6-6-6-6'/%3e%3c/svg%3e");
+    content: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='rgba%28255,255,255,.5%29' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 14l6-6-6-6'/%3e%3c/svg%3e");
 }
 
 .btn-toggle[aria-expanded="true"] {
-  color: rgba(var(--bs-emphasis-color-rgb), .85);
+    color: rgba(var(--bs-emphasis-color-rgb), .85);
 }
+
 .btn-toggle[aria-expanded="true"]::before {
-  transform: rotate(90deg);
+    transform: rotate(90deg);
 }
 
 .btn-toggle-nav a {
-  padding: .1875rem .5rem;
-  margin-top: .125rem;
-  margin-left: 1.25rem;
+    padding: .1875rem .5rem;
+    margin-top: .125rem;
+    margin-left: 1.25rem;
 }
+
 .btn-toggle-nav a:hover,
 .btn-toggle-nav a:focus {
-  background-color: var(--bs-tertiary-bg);
+    background-color: var(--bs-tertiary-bg);
 }
 
 .d-flex {
-  display: flex;
+    display: flex;
 }
 
 .sidebar {
-  background-color: #242124;
-  overflow-y: scroll;
-  height: 100vh; /* ビューポートの高さにサイドバーを合わせる */
-  position: fixed; /* 固定位置に配置 */
-  top: 0; /* 上端に配置 */
-  left: 0; /* 左端に配置 */
+    background-color: #242124;
+    overflow-y: scroll;
+    height: 100vh; /* ビューポートの高さにサイドバーを合わせる */
+    position: fixed; /* 固定位置に配置 */
+    top: 0; /* 上端に配置 */
+    left: 0; /* 左端に配置 */
 }
 
 .main-content {
-  text-align: center;
-  flex: 1;
-  margin-left: 280px; /* サイドバーの幅を考慮した余白 */
-  margin-bottom: 100px;
+    text-align: center;
+    flex: 1;
+    margin-left: 280px; /* サイドバーの幅を考慮した余白 */
+    margin-bottom: 100px;
 }
+
+.center-main-content {
+    text-align: center;
+    flex: 1;
+    margin-left: 0; /* サイドバーの幅を考慮した余白 */
+    margin-bottom: 100px;
+}
+
 
 /* Webkit系ブラウザ（Chrome, Safari） */
 ::-webkit-scrollbar {
@@ -85,15 +98,64 @@
 
 /* アカウントメニューのスタイル */
 .account-menu {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 280px;
-  background-color: #242124; /* メニューの背景色 */
-  padding: 10px; /* 適宜調整 */
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 280px;
+    background-color: #242124; /* メニューの背景色 */
+    padding: 10px; /* 適宜調整 */
 }
 
 /* メインコンテンツの下にスペースを確保 */
 .main-content {
-  padding-bottom: 60px; /* アカウントメニューの高さ + 余白分 */
+    padding-bottom: 60px; /* アカウントメニューの高さ + 余白分 */
+}
+
+/********** iphoneで見る場合はサイドバーをスライド方式に **********/
+.hamburger-menu {
+    cursor: pointer;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 999; /* 最前面に表示 */
+    transition: .5s;
+}
+
+.bar {
+    width: 30px;
+    height: 3px;
+    background-color: white;
+    margin: 6px 0;
+    transition: 0.4s;
+}
+
+.hidden-sidebar {
+    background-color: #242124;
+    overflow-y: scroll;
+    height: 100vh; /* ビューポートの高さにサイドバーを合わせる */
+    position: fixed; /* 固定位置に配置 */
+    top: 0; /* 上端に配置 */
+    left: -50vw;
+    width: 50vw;
+    transition: .5s;
+    z-index: 998;
+    overflow-x: hidden;
+}
+
+.hidden-sidebar.active {
+    left: 0;
+}
+
+.hidden-account-menu {
+    position: fixed;
+    bottom: 0;
+    left: -50vw;
+    width: 50vw;
+    transition: .5s;
+    background-color: #242124; /* メニューの背景色 */
+    padding: 10px; /* 適宜調整 */
+}
+
+.hidden-account-menu.active {
+    left: 0;
 }

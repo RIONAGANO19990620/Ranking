@@ -4,105 +4,194 @@
 <html lang="ja">
 <head>
     <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
-  <!-- CSSの設定ファイル -->
+    <!-- CSSの設定ファイル -->
     <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
 
-    <title>university Search</title>
+    <title>University Search | なんでもランキング.com</title>
     <!-- アイコンの設定 -->
     <svg xmlns="http://www.w3.org/2000/svg" class="d-none"></svg>
-  <symbol id="bootstrap" viewBox="0 0 118 94">
-    <style>
-        body {
-            background: #333333;
-            color: white;
-            font-family: Arial, sans-serif;
-            min-height: 100vh; /* ページの最低高さをビューポートの高さに設定 */
-        }
+    <symbol id="bootstrap" viewBox="0 0 118 94">
+        <style>
+            body {
+                background: #333333;
+                color: white;
+                font-family: Arial, sans-serif;
+                min-height: 100vh; /* ページの最低高さをビューポートの高さに設定 */
+            }
 
-        .search-form {
-            margin: 20px;
-        }
-        .search-input {
-            width: 200px;
-            padding: 10px;
-            font-size: 16px;
-            border-radius: 10px;
-        }
-        .search-button {
-            padding: 10px 20px;
-            font-size: 16px;
-        }
-        .search-results {
-            margin-top: 20px;
-            margin-left: 50px;
-        }
-        .no-results {
-            color: red;
-        }
-        table {
-            width: 80%;
-            border-collapse: collapse;
-            margin: 0 auto;
-        }
-        th, td {
-            padding: 8px;
-            border: 1px solid #ddd;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-    </style>
+            .search-form {
+                margin: 20px;
+            }
+
+            .search-input {
+                width: 200px;
+                padding: 10px;
+                font-size: 16px;
+                border-radius: 10px;
+            }
+
+            .search-button {
+                padding: 10px 20px;
+                font-size: 16px;
+            }
+
+            .search-results {
+                margin-top: 20px;
+                margin-left: 50px;
+            }
+
+            .no-results {
+                color: red;
+            }
+
+            table {
+                width: 80%;
+                border-collapse: collapse;
+                margin: 0 auto;
+            }
+
+            th, td {
+                padding: 8px;
+                border: 1px solid #ddd;
+            }
+
+            th {
+                background-color: #f2f2f2;
+            }
+        </style>
 </head>
 <body>
 <main class="d-flex">
 
-<!-- 折り畳み可能リストのサイドバー -->
-<div class="sidebar">
-  <div class="flex-shrink-0 p-3" style="width: 280px; margin-bottom: 100px">
-      <p class="d-flex pb-3 mb-3 border-bottom">
-        <span class="fs-5 fw-semibold"><strong>なんでもランキング.com</strong></span>
-    </p>
-    <p class="d-flex pb-3 mb-3 border-bottom">
-      <svg class="bi me-2" width="30" height="24"><use xlink:href="#bootstrap"/></svg>
-        <span class="fs-5 fw-semibold"><strong>一覧</strong></span>
-    </p>
-    <ul class="list-unstyled ps-0">
-      <li class="mb-1">
-        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0" data-bs-toggle="collapse" data-bs-target="#group-collapse" aria-expanded="false">
-          学歴群
-        </button>
-            <div class="collapse" id="group-collapse">
-          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1">
-            <li><a href='{% url 'university:university' %}?query="東京" "京都" 東京工業 一橋' class="link-body-emphasis d-inline-flex text-decoration-none rounded">東京一工</a></li>
-            <li><a href='{% url 'university:university' %}?query="東京" "京都" "大阪" "東北" "名古屋" "北海道" "九州"' class="link-body-emphasis d-inline-flex text-decoration-none rounded">旧帝</a></li>
-            <li><a href='{% url 'university:university' %}?query="筑波" "横浜国立" "千葉"' class="link-body-emphasis d-inline-flex text-decoration-none rounded">筑横千</a></li>
-            <li><a href='{% url 'university:university' %}?query=早稲田 慶応 上智 東京理科 国際基督教' class="link-body-emphasis d-inline-flex text-decoration-none rounded">早慶上理ICU</a></li>
-              <li><a href='{% url 'university:university' %}?query=金沢 岡山 千葉 広島' class="link-body-emphasis d-inline-flex text-decoration-none rounded">金岡千広</a></li>
-              <li><a href='{% url 'university:university' %}?query=電気通信 東京農工 名古屋工業 京都工芸繊維' class="link-body-emphasis d-inline-flex text-decoration-none rounded">電農名繊</a></li>
-              <li><a href='{% url 'university:university' %}?query=埼玉 新潟 静岡 信州 滋賀' class="link-body-emphasis d-inline-flex text-decoration-none rounded">5S</a></li>
-              <li><a href='{% url 'university:university' %}?query=明治 青山 立教 中央 法政' class="link-body-emphasis d-inline-flex text-decoration-none rounded">MARCH</a></li>
-              <li><a href='{% url 'university:university' %}?query=関西学院 関西 同志社 立命館' class="link-body-emphasis d-inline-flex text-decoration-none rounded">関関同立</a></li>
-              <li><a href='{% url 'university:university' %}?query=佐賀 鳥取 秋田 琉球 島根' class="link-body-emphasis d-inline-flex text-decoration-none rounded">STARS</a></li>
-          </ul>
+    {% if user_agent.device.family == 'iPhone' %}
+        <div class="hamburger-menu" id="hamburger-menu">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
         </div>
-      </li>
-      <li class="mb-1">
-        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0" data-bs-toggle="collapse" data-bs-target="#region-collapse" aria-expanded="false">
-          地域別ランキング
-        </button>
-        <div class="collapse" id="region-collapse">
-          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1">
-            <li><a href="{% url 'university:university' %}?query=McKinsey BCG Bain ATK Strategy& Roland ADL ZSA EYParthenon IGPI (戦略)" class="link-body-emphasis d-inline-flex text-decoration-none rounded">戦略</a></li>
-            <li><a href="{% url 'university:university' %}?query=コンサル" class="link-body-emphasis d-inline-flex text-decoration-none rounded">総合</a></li>
-            <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">その他</a></li>
-          </ul>
-        </div>
-      </li>
-    </ul>
-        </div>
-  </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+        <!-- 折り畳み可能リストのサイドバー -->
+        <div class="hidden-sidebar" id="sidebar">
+    {% else %}
+        <div class="sidebar">
+    {% endif %}
+    <div class="flex-shrink-0 p-3" style="width: 280px; margin-bottom: 100px">
+        <p class="d-flex pb-3 mb-3">
+        {% if user_agent.device.family == "iPhone" %}
+            <span class="fs-5 fw-semibold" style="margin-top: 50px"><strong>なんでもランキング.com</strong></span>
+        {% else %}
+            <span class="fs-5 fw-semibold"><strong>なんでもランキング.com</strong></span>
+        {% endif %}
+        </p>
+        <p class="d-flex pb-3 mb-3 border-bottom">
+            <svg class="bi me-2" width="30" height="24">
+                <use xlink:href="#bootstrap"/>
+            </svg>
+            <span class="fs-5 fw-semibold"><strong>一覧</strong></span>
+        </p>
+        <ul class="list-unstyled ps-0">
+            <li class="mb-1">
+                <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0"
+                        data-bs-toggle="collapse" data-bs-target="#group-collapse" aria-expanded="false">
+                    学歴群
+                </button>
+                <div class="collapse" id="group-collapse">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1">
+                        <li><a href='{% url 'university:university' %}?query="東京" "京都" 東京工業 一橋'
+                               class="link-body-emphasis d-inline-flex text-decoration-none rounded">東京一工</a></li>
+                        <li>
+                            <a href='{% url 'university:university' %}?query="東京" "京都" "大阪" "東北" "名古屋" "北海道" "九州"'
+                               class="link-body-emphasis d-inline-flex text-decoration-none rounded">旧帝</a></li>
+                        <li><a href='{% url 'university:university' %}?query="筑波" "横浜国立" "千葉"'
+                               class="link-body-emphasis d-inline-flex text-decoration-none rounded">筑横千</a></li>
+                        <li><a href='{% url 'university:university' %}?query=早稲田 慶応 上智 東京理科 国際基督教'
+                               class="link-body-emphasis d-inline-flex text-decoration-none rounded">早慶上理ICU</a>
+                        </li>
+                        <li><a href='{% url 'university:university' %}?query=金沢 岡山 千葉 広島'
+                               class="link-body-emphasis d-inline-flex text-decoration-none rounded">金岡千広</a></li>
+                        <li><a href='{% url 'university:university' %}?query=電気通信 東京農工 名古屋工業 京都工芸繊維'
+                               class="link-body-emphasis d-inline-flex text-decoration-none rounded">電農名繊</a></li>
+                        <li><a href='{% url 'university:university' %}?query=埼玉 新潟 静岡 信州 滋賀'
+                               class="link-body-emphasis d-inline-flex text-decoration-none rounded">5S</a></li>
+                        <li><a href='{% url 'university:university' %}?query=明治 青山 立教 中央 法政'
+                               class="link-body-emphasis d-inline-flex text-decoration-none rounded">MARCH</a></li>
+                        <li><a href='{% url 'university:university' %}?query=関西学院 関西 同志社 立命館'
+                               class="link-body-emphasis d-inline-flex text-decoration-none rounded">関関同立</a></li>
+                        <li><a href='{% url 'university:university' %}?query=佐賀 鳥取 秋田 琉球 島根'
+                               class="link-body-emphasis d-inline-flex text-decoration-none rounded">STARS</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="mb-1">
+                <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0"
+                        data-bs-toggle="collapse" data-bs-target="#region-collapse" aria-expanded="false">
+                    地域別ランキング
+                </button>
+                <div class="collapse" id="region-collapse">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1">
+                        <li>
+                            <a href="{% url 'university:university' %}?query=McKinsey BCG Bain ATK Strategy& Roland ADL ZSA EYParthenon IGPI (戦略)"
+                               class="link-body-emphasis d-inline-flex text-decoration-none rounded">戦略</a></li>
+                        <li><a href="{% url 'university:university' %}?query=コンサル"
+                               class="link-body-emphasis d-inline-flex text-decoration-none rounded">総合</a></li>
+                        <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">その他</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+        <!-- アカウントメニュー -->
+        {% if user_agent.device.family == 'iPhone' %}
+            <div class="hidden-account-menu border-top" id="hidden-account-menu">
+                <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#account-collapse" aria-expanded="false">
+                    幹部様はこちら
+                </button>
+                <div class="collapse" id="account-collapse">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                        <li><a href="#"
+                               class="link-body-emphasis d-inline-flex text-decoration-none rounded">新プロジェクト</a>
+                        </li>
+                        <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">プロフィール</a>
+                        </li>
+                        <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">設定</a>
+                        </li>
+                        <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">ログイン</a>
+                        </li>
+                    </ul>
+                </div>
+                <div style="margin-top: 10px">© 2023 就職偏差値 格付けの会</div>
+            </div>
+        {% endif %}
+        <!-- アカウントメニュー END -->
+    </div>
+    </div>
+<script>
+        // JavaScript
+        document.addEventListener("DOMContentLoaded", function () {
+            // ハンバーガーメニューとサイドバーの要素を取得
+            const hamburgerMenu = document.getElementById("hamburger-menu");
+            const sidebar = document.getElementById("sidebar");
+            const accountMenu = document.getElementById("hidden-account-menu");
+
+            // ハンバーガーメニューをクリックしたときの処理
+            hamburgerMenu.addEventListener("click", function () {
+                // サイドバーに "active" クラスがあれば削除し、なければ追加する
+                if (sidebar.classList.contains("active")) {
+                    hamburgerMenu.classList.remove("active");
+                    sidebar.classList.remove("active");
+                    accountMenu.classList.remove("active");
+                } else {
+                    hamburgerMenu.classList.add("active");
+                    sidebar.classList.add("active");
+                    accountMenu.classList.add("active");
+                }
+            });
+        });
+
+    </script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
 </body>
 </html>

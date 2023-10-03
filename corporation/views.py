@@ -1,19 +1,38 @@
 from django.shortcuts import render
 from .models import Corporation
 from django.db.models import Q
+import re
 
+from user_agents import parse
 
 def search_corporation(request):
+    user_agent = parse(request.META.get('HTTP_USER_AGENT'))
     query = request.GET.get('query', '')  # Get the user input from the query parameter
 
     if query=="all":
         corporations = Corporation.objects.all().order_by('-value')
 
-    elif query and query[0].isdigit():
+    elif query and query.replace(" ", "")[0:].isdigit():  # スペースを除いた全ての文字が数字の場合
+
         q_objects = Q()  # 空のQオブジェクトを作成
         words = query.split()
         for keyword in words:
             q_objects |= Q(value=keyword)
+        corporations = Corporation.objects.filter(q_objects).order_by('-value')
+
+    elif query and "~" in query:  # 範囲検索
+        match = re.match(r"(\d+)~(\d+)", query)
+        
+        if int(match.group(1)) < int(match.group(2)):
+            from_value = int(match.group(1))
+            to_value = int(match.group(2))
+        else:
+            from_value = int(match.group(2))
+            to_value = int(match.group(1))
+
+        q_objects = Q()
+        for i in range(from_value, to_value+1):
+            q_objects |= Q(value=i)
         corporations = Corporation.objects.filter(q_objects).order_by('-value')
 
     elif query:
@@ -41,6 +60,7 @@ def search_corporation(request):
         corporations = None
 
     context = {
+        'user_agent': user_agent,
         'query': query,
         'corporations': corporations,
     }
