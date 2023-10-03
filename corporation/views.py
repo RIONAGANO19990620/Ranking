@@ -3,7 +3,10 @@ from .models import Corporation
 from django.db.models import Q
 import re
 
+from user_agents import parse
+
 def search_corporation(request):
+    user_agent = parse(request.META.get('HTTP_USER_AGENT'))
     query = request.GET.get('query', '')  # Get the user input from the query parameter
 
     if query=="all":
@@ -57,6 +60,7 @@ def search_corporation(request):
         corporations = None
 
     context = {
+        'user_agent': user_agent,
         'query': query,
         'corporations': corporations,
     }
