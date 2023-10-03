@@ -1,9 +1,10 @@
 from django.shortcuts import render
 from .models import HighSchool
 from django.db.models import Q
-
+from user_agents import parse
 
 def search_highschool(request):
+    user_agent = parse(request.META.get('HTTP_USER_AGENT'))
     query = request.GET.get('query', '')  # Get the user input from the query parameter
 
     if query == "all":
@@ -51,6 +52,7 @@ def search_highschool(request):
         high_schools = __high_schools
 
     context = {
+        'user_agent': user_agent,
         'query': query,
         'high_schools': high_schools,
     }

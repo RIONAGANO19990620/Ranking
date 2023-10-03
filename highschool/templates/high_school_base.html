@@ -4,198 +4,306 @@
 <html lang="ja">
 <head>
     <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
-  <!-- CSSの設定ファイル -->
+    <!-- CSSの設定ファイル -->
     <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
 
-    <title>Corporation Search</title>
+    <title>HighSchool Search | なんでもランキング.com</title>
     <!-- アイコンの設定 -->
     <svg xmlns="http://www.w3.org/2000/svg" class="d-none"></svg>
-  <symbol id="bootstrap" viewBox="0 0 118 94">
-    <style>
-        body {
-            background: #333333;
-            color: white;
-            font-family: Arial, sans-serif;
-            min-height: 100vh; /* ページの最低高さをビューポートの高さに設定 */
-        }
+    <symbol id="bootstrap" viewBox="0 0 118 94">
+        <style>
+            body {
+                background: #333333;
+                color: white;
+                font-family: Arial, sans-serif;
+                min-height: 100vh; /* ページの最低高さをビューポートの高さに設定 */
+            }
 
-        .search-form {
-            margin: 20px;
-        }
-        .search-input {
-            width: 200px;
-            padding: 10px;
-            font-size: 16px;
-            border-radius: 10px;
-        }
-        .search-button {
-            padding: 10px 20px;
-            font-size: 16px;
-        }
-        .search-results {
-            margin-top: 20px;
-            margin-left: 50px;
-        }
-        .no-results {
-            color: red;
-        }
-        table {
-            width: 80%;
-            border-collapse: collapse;
-            margin: 0 auto;
-        }
-        th, td {
-            padding: 8px;
-            border: 1px solid #ddd;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-    </style>
+            .search-form {
+                margin: 20px;
+            }
+
+            .search-input {
+                width: 200px;
+                padding: 10px;
+                font-size: 16px;
+                border-radius: 10px;
+            }
+
+            .search-button {
+                padding: 10px 20px;
+                font-size: 16px;
+            }
+
+            .search-results {
+                margin-top: 20px;
+                margin-left: 50px;
+            }
+
+            .no-results {
+                color: red;
+            }
+
+            table {
+                width: 80%;
+                border-collapse: collapse;
+                margin: 0 auto;
+            }
+
+            th, td {
+                padding: 8px;
+                border: 1px solid #ddd;
+            }
+
+            th {
+                background-color: #f2f2f2;
+            }
+        </style>
 </head>
 <body>
 <main class="d-flex">
-  <h1 class="visually-hidden">サイドバーの実例</h1>
 
-<!-- 折り畳み可能リストのサイドバー -->
-<div class="sidebar">
-  <div class="flex-shrink-0 p-3" style="width: 280px; margin-bottom: 100px">
-      <p class="d-flex pb-3 mb-3 border-bottom">
-        <span class="fs-5 fw-semibold"><strong>なんでもランキング.com</strong></span>
-    </p>
-    <p class="d-flex pb-3 mb-3 border-bottom">
-      <svg class="bi me-2" width="30" height="24"><use xlink:href="#bootstrap"/></svg>
-        <span class="fs-5 fw-semibold"><strong>地域別TOP3</strong></span>
-    </p>
-    <ul class="list-unstyled ps-0">
-      <li class="mb-1">
-        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0" data-bs-toggle="collapse" data-bs-target="#hokkaido-collapse" aria-expanded="false">
-            北海道
-        </button>
-        <div class="collapse" id="hokkaido-collapse">
-          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 ">
-              <li><a href="{% url 'highschool:high_school' %}?query=札幌北 札幌南" class="link-body-emphasis d-inline-flex text-decoration-none rounded">全体</a></li>
-            <li><a href="{% url 'highschool:high_school' %}?query=札幌北 札幌南" class="link-body-emphasis d-inline-flex text-decoration-none rounded">公立</a></li>
-            <li><a href="{% url 'highschool:high_school' %}?query= " class="link-body-emphasis d-inline-flex text-decoration-none rounded">私立</a></li>
-          </ul>
+    {% if user_agent.device.family == 'iPhone' %}
+        <div class="hamburger-menu" id="hamburger-menu">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
         </div>
-      </li>
-      <li class="mb-1">
-        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0" data-bs-toggle="collapse" data-bs-target="#tohoku-collapse" aria-expanded="false">
-          東北
-        </button>
-        <div class="collapse" id="tohoku-collapse">
-          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 ">
-            <li><a href="{% url 'highschool:high_school' %}?query=八戸 仙台第二 盛岡第一" class="link-body-emphasis d-inline-flex text-decoration-none rounded">全体</a></li>
-              <li><a href="{% url 'highschool:high_school' %}?query=八戸 仙台第二 盛岡第一" class="link-body-emphasis d-inline-flex text-decoration-none rounded">公立</a></li>
-              <li><a href="{% url 'highschool:high_school' %}?query=" class="link-body-emphasis d-inline-flex text-decoration-none rounded">私立</a></li>
+        <!-- 折り畳み可能リストのサイドバー -->
+        <div class="hidden-sidebar" id="sidebar">
+    {% else %}
+        <div class="sidebar">
+    {% endif %}
+    <div class="flex-shrink-0 p-3" style="width: 280px; margin-bottom: 100px">
+        <p class="d-flex pb-3 mb-3">
+            {% if user_agent.device.family == "iPhone" %}
+                <span class="fs-5 fw-semibold" style="margin-top: 50px"><strong>なんでもランキング.com</strong></span>
+            {% else %}
+                <span class="fs-5 fw-semibold"><strong>なんでもランキング.com</strong></span>
+            {% endif %}
+        </p>
+        <p class="d-flex pb-3 mb-3 border-top">
+            <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0"
+                    data-bs-toggle="collapse" data-bs-target="#region-collapse" aria-expanded="false">
+                <span class="fs-5"><strong>地域別TOP3</strong></span></button>
+        </p>
+        <ul class="list-unstyled ps-0 collapse" id="region-collapse">
+            <li class="mb-1">
+                <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0"
+                        data-bs-toggle="collapse" data-bs-target="#hokkaido-collapse" aria-expanded="false">
+                    北海道
+                </button>
+                <div class="collapse" id="hokkaido-collapse">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 ">
+                        <li><a href="{% url 'highschool:high_school' %}?query=札幌北 札幌南"
+                               class="link-body-emphasis d-inline-flex text-decoration-none rounded">全体</a></li>
+                        <li><a href="{% url 'highschool:high_school' %}?query=札幌北 札幌南"
+                               class="link-body-emphasis d-inline-flex text-decoration-none rounded">公立</a></li>
+                        <li><a href="{% url 'highschool:high_school' %}?query= "
+                               class="link-body-emphasis d-inline-flex text-decoration-none rounded">私立</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="mb-1">
+                <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0"
+                        data-bs-toggle="collapse" data-bs-target="#tohoku-collapse" aria-expanded="false">
+                    東北
+                </button>
+                <div class="collapse" id="tohoku-collapse">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 ">
+                        <li><a href="{% url 'highschool:high_school' %}?query=八戸 仙台第二 盛岡第一"
+                               class="link-body-emphasis d-inline-flex text-decoration-none rounded">全体</a></li>
+                        <li><a href="{% url 'highschool:high_school' %}?query=八戸 仙台第二 盛岡第一"
+                               class="link-body-emphasis d-inline-flex text-decoration-none rounded">公立</a></li>
+                        <li><a href="{% url 'highschool:high_school' %}?query="
+                               class="link-body-emphasis d-inline-flex text-decoration-none rounded">私立</a></li>
 
-          </ul>
-        </div>
-      </li>
-      <li class="mb-1">
-        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0" data-bs-toggle="collapse" data-bs-target="#kanto-collapse" aria-expanded="false">
-          関東
-        </button>
-        <div class="collapse" id="kanto-collapse">
-          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 ">
-              <li><a href='{% url 'highschool:high_school' %}?query=慶應女子（一般） 筑波大駒場 "開成"' class="link-body-emphasis d-inline-flex text-decoration-none rounded">全体</a></li>
-              <li><a href='{% url 'highschool:high_school' %}?query=日比谷 "西" 横浜翠嵐' class="link-body-emphasis d-inline-flex text-decoration-none rounded">公立</a></li>
-              <li><a href='{% url 'highschool:high_school' %}?query="開成" 渋谷幕張 慶應志木（一般） 早稲田実業' class="link-body-emphasis d-inline-flex text-decoration-none rounded">私立</a></li>
-          </ul>
-        </div>
-      </li>
-      <li class="mb-1">
-        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0" data-bs-toggle="collapse" data-bs-target="#koshin-collapse" aria-expanded="false">
-         甲信越
-        </button>
-        <div class="collapse" id="koshin-collapse">
-          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 ">
-              <li><a href="{% url 'highschool:high_school' %}?query=新潟 長野（県立） 松本深志" class="link-body-emphasis d-inline-flex text-decoration-none rounded">全体</a></li>
-              <li><a href="{% url 'highschool:high_school' %}?query=新潟 長野（県立） 松本深志" class="link-body-emphasis d-inline-flex text-decoration-none rounded">公立</a></li>
-              <li><a href="{% url 'highschool:high_school' %}?query=" class="link-body-emphasis d-inline-flex text-decoration-none rounded">私立</a></li>
-          </ul>
-        </div>
-      </li>
-        <li class="mb-1">
-        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0" data-bs-toggle="collapse" data-bs-target="#hokurik-collapse" aria-expanded="false">
-         北陸
-        </button>
-        <div class="collapse" id="hokurik-collapse">
-          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 ">
-              <li><a href="{% url 'highschool:high_school' %}?query=金沢 富山 藤島" class="link-body-emphasis d-inline-flex text-decoration-none rounded">全体</a></li>
-              <li><a href="{% url 'highschool:high_school' %}?query=金沢 富山 藤島" class="link-body-emphasis d-inline-flex text-decoration-none rounded">公立</a></li>
-              <li><a href="{% url 'highschool:high_school' %}?query=" class="link-body-emphasis d-inline-flex text-decoration-none rounded">私立</a></li>
-          </ul>
-        </div>
-      </li>
-        </li>
-        <li class="mb-1">
-        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0" data-bs-toggle="collapse" data-bs-target="#tokai-collapse" aria-expanded="undefined">
-         東海
-        </button>
-        <div class="collapse" id="tokai-collapse">
-          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 ">
-              <li><a href="{% url 'highschool:high_school' %}?query=岡崎 旭丘 岐阜" class="link-body-emphasis d-inline-flex text-decoration-none rounded">全体</a></li>
-              <li><a href="{% url 'highschool:high_school' %}?query=岡崎 旭丘 岐阜" class="link-body-emphasis d-inline-flex text-decoration-none rounded">公立</a></li>
-              <li><a href="{% url 'highschool:high_school' %}?query=" class="link-body-emphasis d-inline-flex text-decoration-none rounded">私立</a></li>
-          </ul>
-        </div>
-      </li>
-        <li class="mb-1">
-        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0" data-bs-toggle="collapse" data-bs-target="#kinki-collapse" aria-expanded="undefined">
-         近畿
-        </button>
-        <div class="collapse" id="kinki-collapse">
-          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 ">
-              <li><a href="{% url 'highschool:high_school' %}?query=" class="link-body-emphasis d-inline-flex text-decoration-none rounded">全体</a></li>
-              <li><a href="{% url 'highschool:high_school' %}?query=" class="link-body-emphasis d-inline-flex text-decoration-none rounded">公立</a></li>
-              <li><a href="{% url 'highschool:high_school' %}?query=" class="link-body-emphasis d-inline-flex text-decoration-none rounded">私立</a></li>
-          </ul>
-        </div>
-      </li>
-        <li class="mb-1">
-        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0" data-bs-toggle="collapse" data-bs-target="#chugoku-collapse" aria-expanded="undefined">
-         中国
-        </button>
-        <div class="collapse" id="chugoku-collapse">
-          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 ">
-              <li><a href="{% url 'highschool:high_school' %}?query=" class="link-body-emphasis d-inline-flex text-decoration-none rounded">全体</a></li>
-              <li><a href="{% url 'highschool:high_school' %}?query=" class="link-body-emphasis d-inline-flex text-decoration-none rounded">公立</a></li>
-              <li><a href="{% url 'highschool:high_school' %}?query=" class="link-body-emphasis d-inline-flex text-decoration-none rounded">私立</a></li>
-          </ul>
-        </div>
-      </li>
-        <li class="mb-1">
-        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0" data-bs-toggle="collapse" data-bs-target="#shikoku-collapse" aria-expanded="undefined">
-         四国
-        </button>
-        <div class="collapse" id="shikoku-collapse">
-          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 ">
-              <li><a href="{% url 'highschool:high_school' %}?query=" class="link-body-emphasis d-inline-flex text-decoration-none rounded">全体</a></li>
-              <li><a href="{% url 'highschool:high_school' %}?query=" class="link-body-emphasis d-inline-flex text-decoration-none rounded">公立</a></li>
-              <li><a href="{% url 'highschool:high_school' %}?query=" class="link-body-emphasis d-inline-flex text-decoration-none rounded">私立</a></li>
-          </ul>
-        </div>
-      </li>
-        <li class="mb-1">
-        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0" data-bs-toggle="collapse" data-bs-target="#kyushu-collapse" aria-expanded="undefined">
-         九州
-        </button>
-        <div class="collapse" id="kyushu-collapse">
-          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 ">
-              <li><a href="{% url 'highschool:high_school' %}?query=" class="link-body-emphasis d-inline-flex text-decoration-none rounded">全体</a></li>
-              <li><a href="{% url 'highschool:high_school' %}?query=" class="link-body-emphasis d-inline-flex text-decoration-none rounded">公立</a></li>
-              <li><a href="{% url 'highschool:high_school' %}?query=" class="link-body-emphasis d-inline-flex text-decoration-none rounded">私立</a></li>
-          </ul>
-        </div>
-      </li>
-    </ul>
-  </div>
-</div>
+                    </ul>
+                </div>
+            </li>
+            <li class="mb-1">
+                <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0"
+                        data-bs-toggle="collapse" data-bs-target="#kanto-collapse" aria-expanded="false">
+                    関東
+                </button>
+                <div class="collapse" id="kanto-collapse">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 ">
+                        <li><a href='{% url 'highschool:high_school' %}?query=慶應女子（一般） 筑波大駒場 "開成"'
+                               class="link-body-emphasis d-inline-flex text-decoration-none rounded">全体</a></li>
+                        <li><a href='{% url 'highschool:high_school' %}?query=日比谷 "西" 横浜翠嵐'
+                               class="link-body-emphasis d-inline-flex text-decoration-none rounded">公立</a></li>
+                        <li><a href='{% url 'highschool:high_school' %}?query="開成" 渋谷幕張 慶應志木（一般） 早稲田実業'
+                               class="link-body-emphasis d-inline-flex text-decoration-none rounded">私立</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="mb-1">
+                <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0"
+                        data-bs-toggle="collapse" data-bs-target="#koshin-collapse" aria-expanded="false">
+                    甲信越
+                </button>
+                <div class="collapse" id="koshin-collapse">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 ">
+                        <li><a href="{% url 'highschool:high_school' %}?query=新潟 長野（県立） 松本深志"
+                               class="link-body-emphasis d-inline-flex text-decoration-none rounded">全体</a></li>
+                        <li><a href="{% url 'highschool:high_school' %}?query=新潟 長野（県立） 松本深志"
+                               class="link-body-emphasis d-inline-flex text-decoration-none rounded">公立</a></li>
+                        <li><a href="{% url 'highschool:high_school' %}?query="
+                               class="link-body-emphasis d-inline-flex text-decoration-none rounded">私立</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="mb-1">
+                <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0"
+                        data-bs-toggle="collapse" data-bs-target="#hokurik-collapse" aria-expanded="false">
+                    北陸
+                </button>
+                <div class="collapse" id="hokurik-collapse">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 ">
+                        <li><a href="{% url 'highschool:high_school' %}?query=金沢 富山 藤島"
+                               class="link-body-emphasis d-inline-flex text-decoration-none rounded">全体</a></li>
+                        <li><a href="{% url 'highschool:high_school' %}?query=金沢 富山 藤島"
+                               class="link-body-emphasis d-inline-flex text-decoration-none rounded">公立</a></li>
+                        <li><a href="{% url 'highschool:high_school' %}?query="
+                               class="link-body-emphasis d-inline-flex text-decoration-none rounded">私立</a></li>
+                    </ul>
+                </div>
+            </li>
+            </li>
+            <li class="mb-1">
+                <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0"
+                        data-bs-toggle="collapse" data-bs-target="#tokai-collapse" aria-expanded="undefined">
+                    東海
+                </button>
+                <div class="collapse" id="tokai-collapse">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 ">
+                        <li><a href="{% url 'highschool:high_school' %}?query=岡崎 旭丘 岐阜"
+                               class="link-body-emphasis d-inline-flex text-decoration-none rounded">全体</a></li>
+                        <li><a href="{% url 'highschool:high_school' %}?query=岡崎 旭丘 岐阜"
+                               class="link-body-emphasis d-inline-flex text-decoration-none rounded">公立</a></li>
+                        <li><a href="{% url 'highschool:high_school' %}?query="
+                               class="link-body-emphasis d-inline-flex text-decoration-none rounded">私立</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="mb-1">
+                <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0"
+                        data-bs-toggle="collapse" data-bs-target="#kinki-collapse" aria-expanded="undefined">
+                    近畿
+                </button>
+                <div class="collapse" id="kinki-collapse">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 ">
+                        <li><a href="{% url 'highschool:high_school' %}?query="
+                               class="link-body-emphasis d-inline-flex text-decoration-none rounded">全体</a></li>
+                        <li><a href="{% url 'highschool:high_school' %}?query="
+                               class="link-body-emphasis d-inline-flex text-decoration-none rounded">公立</a></li>
+                        <li><a href="{% url 'highschool:high_school' %}?query="
+                               class="link-body-emphasis d-inline-flex text-decoration-none rounded">私立</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="mb-1">
+                <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0"
+                        data-bs-toggle="collapse" data-bs-target="#chugoku-collapse" aria-expanded="undefined">
+                    中国
+                </button>
+                <div class="collapse" id="chugoku-collapse">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 ">
+                        <li><a href="{% url 'highschool:high_school' %}?query="
+                               class="link-body-emphasis d-inline-flex text-decoration-none rounded">全体</a></li>
+                        <li><a href="{% url 'highschool:high_school' %}?query="
+                               class="link-body-emphasis d-inline-flex text-decoration-none rounded">公立</a></li>
+                        <li><a href="{% url 'highschool:high_school' %}?query="
+                               class="link-body-emphasis d-inline-flex text-decoration-none rounded">私立</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="mb-1">
+                <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0"
+                        data-bs-toggle="collapse" data-bs-target="#shikoku-collapse" aria-expanded="undefined">
+                    四国
+                </button>
+                <div class="collapse" id="shikoku-collapse">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 ">
+                        <li><a href="{% url 'highschool:high_school' %}?query="
+                               class="link-body-emphasis d-inline-flex text-decoration-none rounded">全体</a></li>
+                        <li><a href="{% url 'highschool:high_school' %}?query="
+                               class="link-body-emphasis d-inline-flex text-decoration-none rounded">公立</a></li>
+                        <li><a href="{% url 'highschool:high_school' %}?query="
+                               class="link-body-emphasis d-inline-flex text-decoration-none rounded">私立</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="mb-1">
+                <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0"
+                        data-bs-toggle="collapse" data-bs-target="#kyushu-collapse" aria-expanded="undefined">
+                    九州
+                </button>
+                <div class="collapse" id="kyushu-collapse">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 ">
+                        <li><a href="{% url 'highschool:high_school' %}?query="
+                               class="link-body-emphasis d-inline-flex text-decoration-none rounded">全体</a></li>
+                        <li><a href="{% url 'highschool:high_school' %}?query="
+                               class="link-body-emphasis d-inline-flex text-decoration-none rounded">公立</a></li>
+                        <li><a href="{% url 'highschool:high_school' %}?query="
+                               class="link-body-emphasis d-inline-flex text-decoration-none rounded">私立</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+        <!-- アカウントメニュー -->
+        {% if user_agent.device.family == 'iPhone' %}
+            <div class="hidden-account-menu border-top" id="hidden-account-menu">
+                <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#account-collapse" aria-expanded="false">
+                    幹部様はこちら
+                </button>
+                <div class="collapse" id="account-collapse">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                        <li><a href="#"
+                               class="link-body-emphasis d-inline-flex text-decoration-none rounded">新プロジェクト</a>
+                        </li>
+                        <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">プロフィール</a>
+                        </li>
+                        <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">設定</a>
+                        </li>
+                        <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">ログイン</a>
+                        </li>
+                    </ul>
+                </div>
+                <div style="margin-top: 10px">© 2023 駿台予備校</div>
+            </div>
+        {% endif %}
+        <!-- アカウントメニュー END -->
+    </div>
+    </div>
 </main>
-<script src="{% static 'js/bootstrap.bundle.min.js'  %}"></script>
+<script>
+    // JavaScript
+    document.addEventListener("DOMContentLoaded", function () {
+        // ハンバーガーメニューとサイドバーの要素を取得
+        const hamburgerMenu = document.getElementById("hamburger-menu");
+        const sidebar = document.getElementById("sidebar");
+        const accountMenu = document.getElementById("hidden-account-menu");
+
+        // ハンバーガーメニューをクリックしたときの処理
+        hamburgerMenu.addEventListener("click", function () {
+            // サイドバーに "active" クラスがあれば削除し、なければ追加する
+            if (sidebar.classList.contains("active")) {
+                hamburgerMenu.classList.remove("active");
+                sidebar.classList.remove("active");
+                accountMenu.classList.remove("active");
+            } else {
+                hamburgerMenu.classList.add("active");
+                sidebar.classList.add("active");
+                accountMenu.classList.add("active");
+            }
+        });
+    });
+</script>
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
 </body>
 </html>

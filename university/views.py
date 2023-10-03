@@ -2,9 +2,11 @@ from django.shortcuts import render
 from .models import University
 from django.db.models import Q
 import re
+from user_agents import parse
 
 
 def search_university(request):
+    user_agent = parse(request.META.get('HTTP_USER_AGENT'))
     query = request.GET.get('query', '')  # Get the user input from the query parameter
 
     if query=="all":
@@ -38,6 +40,7 @@ def search_university(request):
         universities = None
 
     context = {
+        'user_agent': user_agent,
         'query': query,
         'universities': universities,
     }
