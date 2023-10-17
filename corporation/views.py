@@ -81,25 +81,32 @@ def quiz_corporation(request):
         request.session["random_corporation"] = random_corporation
 
     result_message = ""
+    answer = ""
     guess = None
 
     if request.method == "POST":
         guess = int(request.POST["guess"])
+        answer = "正解：" + str(random_corporation.value)
 
         if guess == random_corporation.value:
             result_message = "あたり😆"
+        elif guess >= random_corporation.value + 5:
+            result_message = "そんな高くないで😫"
+        elif guess <= random_corporation.value - 5:
+            result_message = "見くびりすぎなんちゃう😵"
+        else:
+            result_message = "さげ😅"
+
         # 新しいランダムな企業をセッションに保存
         random_corporation = choice(Corporation.objects.all())
         request.session["random_corporation"] = random_corporation
         request.session.save()  # セッションを保存
 
-        if result_message != "あたり😆":
-            result_message = "さげ😅"
-
     context = {
         'corporation': random_corporation,
         'result': result_message,
-        'guess': guess
+        'guess': guess,
+        'answer': answer,
     }
 
     return render(request, 'corporation_quiz.html', context)
