@@ -48,17 +48,16 @@
     <div class="account-menu border-top">
         <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0" data-bs-toggle="collapse"
                 data-bs-target="#account-collapse" aria-expanded="false">
-            幹部様はこちら
+            クイズはこちら
         </button>
         <div class="collapse" id="account-collapse">
             <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">新プロジェクト</a></li>
-                <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">プロフィール</a></li>
-                <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">設定</a></li>
-                <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">ログイン</a></li>
+                <li><a href="{% url 'corporation_quiz' %}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">企業さん</a></li>
+                <li><a href="{% url 'highschool:high_school_quiz' %}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">高校さん</a></li>
+                <li><a href="{% url 'university:university_quiz' %}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">大学さん</a></li>
             </ul>
         </div>
-        <div style="margin-top: 10px">© 2023 駿台予備校</div>
+        <div style="margin-top: 10px">© 2023 駿台 格付けの会</div>
     </div>
 {% endif %}
 </body>

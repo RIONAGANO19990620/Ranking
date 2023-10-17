@@ -2,6 +2,8 @@ from django.shortcuts import render
 from .models import HighSchool
 from django.db.models import Q
 from user_agents import parse
+from random import choice
+
 
 def search_highschool(request):
     user_agent = parse(request.META.get('HTTP_USER_AGENT'))
@@ -58,3 +60,37 @@ def search_highschool(request):
     }
 
     return render(request, 'high_school_search.html', context)
+
+
+def quiz_highschool(request):
+    # セッションから前回のhighschoolを取得
+    random_highschool = request.session.get("random_highschool")
+
+    # セッションにランダムなhighschoolがない場合は新たに生成
+    if not random_highschool:
+        random_highschool = choice(HighSchool.objects.all())
+        request.session["random_highschool"] = random_highschool
+
+    result_message = ""
+    guess = None
+
+    if request.method == "POST":
+        guess = int(request.POST["guess"])
+
+        if guess == random_highschool.value:
+            result_message = "あたり😆"
+        # 新しいランダムな企業をセッションに保存
+        random_highschool = choice(HighSchool.objects.all())
+        request.session["random_highschool"] = random_highschool
+        request.session.save()  # セッションを保存
+
+        if result_message != "あたり😆":
+            result_message = "さげ😅"
+
+    context = {
+        'highschool': random_highschool,
+        'result': result_message,
+        'guess': guess
+    }
+
+    return render(request, 'high_school_quiz.html', context)
