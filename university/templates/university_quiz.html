@@ -1,0 +1,53 @@
+{% include 'university_base.html' %}
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<title>大学格付けサーチ</title>
+</head>
+<body>
+<!--ここからメイン-->
+{% if user_agent.device.family == "iPhone" %}
+    <div class="center-main-content">
+{% else %}
+    <div class="main-content">
+{% endif %}
+    <h1>University Quiz</h1>
+
+<form method="post" class="search-form">
+    {% csrf_token %}
+    <p>企業名: {{ university.name }}</p>
+    <input class="search-input" type="text" id="guess" name="guess" required placeholder="就職偏差値を答える">
+    <button class="search-button btn btn-primary" type="submit">勝負します！</button>
+</form>
+<div style="text-align: right; margin-right: 20px">
+    <a href="{% url 'corporation_quiz' %}">企業さんへ</a>
+    <a href="{% url 'highschool:high_school_quiz' %}">高校さんへ</a>
+</div>
+<h1>
+    {{ result }}
+</h1>
+</div>
+</div>
+
+{% if user_agent.device.family != 'iPhone' %}
+    <!-- サイドバー下部 -->
+    <!-- アカウントメニュー -->
+    <div class="account-menu border-top">
+        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0" data-bs-toggle="collapse"
+                data-bs-target="#account-collapse" aria-expanded="false">
+            表検索はこちら
+        </button>
+        <div class="collapse" id="account-collapse">
+            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                <li><a href="./" class="link-body-emphasis d-inline-flex text-decoration-none rounded">企業さん</a></li>
+                <li><a href="high_school" class="link-body-emphasis d-inline-flex text-decoration-none rounded">高校さん</a></li>
+                <li><a href="university" class="link-body-emphasis d-inline-flex text-decoration-none rounded">大学さん</a></li>
+            </ul>
+        </div>
+        <div style="margin-top: 10px">© 2023 格付けの会</div>
+    </div>
+{% endif %}
+
+</body>
+</html>

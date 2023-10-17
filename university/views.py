@@ -3,6 +3,7 @@ from .models import University
 from django.db.models import Q
 import re
 from user_agents import parse
+from random import choice
 
 
 def search_university(request):
@@ -46,4 +47,38 @@ def search_university(request):
     }
 
     return render(request, 'university_search.html', context)
+
+
+def quiz_university(request):
+    # セッションから前回のuniversityを取得
+    random_university = request.session.get("random_university")
+
+    # セッションにランダムなuniversityがない場合は新たに生成
+    if not random_university:
+        random_university = choice(University.objects.all())
+        request.session["random_university"] = random_university
+
+    result_message = ""
+    guess = None
+
+    if request.method == "POST":
+        guess = str(request.POST["guess"])
+
+        if guess == random_university.rank:
+            result_message = "あたり😆"
+        # 新しいランダムな企業をセッションに保存
+        random_university = choice(University.objects.all())
+        request.session["random_university"] = random_university
+        request.session.save()  # セッションを保存
+
+        if result_message != "あたり😆":
+            result_message = "さげ😅"
+
+    context = {
+        'university': random_university,
+        'result': result_message,
+        'guess': guess
+    }
+
+    return render(request, 'university_quiz.html', context)
 

@@ -2,14 +2,17 @@ from django.shortcuts import render
 from .models import Corporation
 from django.db.models import Q
 import re
+from random import choice
+from django.contrib.sessions.models import Session
 
 from user_agents import parse
+
 
 def search_corporation(request):
     user_agent = parse(request.META.get('HTTP_USER_AGENT'))
     query = request.GET.get('query', '')  # Get the user input from the query parameter
 
-    if query=="all":
+    if query == "all":
         corporations = Corporation.objects.all().order_by('-value')
 
     elif query and query.replace(" ", "")[0:].isdigit():  # スペースを除いた全ての文字が数字の場合
@@ -22,7 +25,7 @@ def search_corporation(request):
 
     elif query and "~" in query:  # 範囲検索
         match = re.match(r"(\d+)~(\d+)", query)
-        
+
         if int(match.group(1)) < int(match.group(2)):
             from_value = int(match.group(1))
             to_value = int(match.group(2))
@@ -31,7 +34,7 @@ def search_corporation(request):
             to_value = int(match.group(1))
 
         q_objects = Q()
-        for i in range(from_value, to_value+1):
+        for i in range(from_value, to_value + 1):
             q_objects |= Q(value=i)
         corporations = Corporation.objects.filter(q_objects).order_by('-value')
 
@@ -67,3 +70,36 @@ def search_corporation(request):
 
     return render(request, 'corporation_search.html', context)
 
+
+def quiz_corporation(request):
+    # セッションから前回のcorporationを取得
+    random_corporation = request.session.get("random_corporation")
+
+    # セッションにランダムなcorporationがない場合は新たに生成
+    if not random_corporation:
+        random_corporation = choice(Corporation.objects.all())
+        request.session["random_corporation"] = random_corporation
+
+    result_message = ""
+    guess = None
+
+    if request.method == "POST":
+        guess = int(request.POST["guess"])
+
+        if guess == random_corporation.value:
+            result_message = "あたり😆"
+        # 新しいランダムな企業をセッションに保存
+        random_corporation = choice(Corporation.objects.all())
+        request.session["random_corporation"] = random_corporation
+        request.session.save()  # セッションを保存
+
+        if result_message != "あたり😆":
+            result_message = "さげ😅"
+
+    context = {
+        'corporation': random_corporation,
+        'result': result_message,
+        'guess': guess
+    }
+
+    return render(request, 'corporation_quiz.html', context)
