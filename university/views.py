@@ -59,10 +59,12 @@ def quiz_university(request):
         request.session["random_university"] = random_university
 
     result_message = ""
+    answer = ""
     guess = None
 
     if request.method == "POST":
         guess = str(request.POST["guess"])
+        answer = "正解：" + random_university.rank
 
         if guess == random_university.rank:
             result_message = "あたり😆"
@@ -77,7 +79,8 @@ def quiz_university(request):
     context = {
         'university': random_university,
         'result': result_message,
-        'guess': guess
+        'guess': guess,
+        'answer': answer
     }
 
     return render(request, 'university_quiz.html', context)

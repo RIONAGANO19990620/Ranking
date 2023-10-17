@@ -72,25 +72,32 @@ def quiz_highschool(request):
         request.session["random_highschool"] = random_highschool
 
     result_message = ""
+    answer = ""
     guess = None
 
     if request.method == "POST":
         guess = int(request.POST["guess"])
+        answer = "正解：" + str(random_highschool.value)
 
         if guess == random_highschool.value:
             result_message = "あたり😆"
+        elif guess >= random_highschool.value + 5:
+            result_message = "そんな高くないで😫"
+        elif guess <= random_highschool.value - 5:
+            result_message = "見くびりすぎなんちゃう😵"
+        else:
+            result_message = "さげ😅"
+
         # 新しいランダムな企業をセッションに保存
         random_highschool = choice(HighSchool.objects.all())
         request.session["random_highschool"] = random_highschool
         request.session.save()  # セッションを保存
 
-        if result_message != "あたり😆":
-            result_message = "さげ😅"
-
     context = {
         'highschool': random_highschool,
         'result': result_message,
-        'guess': guess
+        'guess': guess,
+        "answer": answer
     }
 
     return render(request, 'high_school_quiz.html', context)
