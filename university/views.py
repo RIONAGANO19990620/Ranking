@@ -50,6 +50,7 @@ def search_university(request):
 
 
 def quiz_university(request):
+    user_agent = parse(request.META.get('HTTP_USER_AGENT'))
     # セッションから前回のuniversityを取得
     random_university = request.session.get("random_university")
 
@@ -77,6 +78,7 @@ def quiz_university(request):
             result_message = "さげ😅"
 
     context = {
+        'user_agent': user_agent,
         'university': random_university,
         'result': result_message,
         'guess': guess,

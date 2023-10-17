@@ -63,6 +63,7 @@ def search_highschool(request):
 
 
 def quiz_highschool(request):
+    user_agent = parse(request.META.get('HTTP_USER_AGENT'))
     # セッションから前回のhighschoolを取得
     random_highschool = request.session.get("random_highschool")
 
@@ -94,6 +95,7 @@ def quiz_highschool(request):
         request.session.save()  # セッションを保存
 
     context = {
+        'user_agent': user_agent,
         'highschool': random_highschool,
         'result': result_message,
         'guess': guess,

@@ -72,6 +72,7 @@ def search_corporation(request):
 
 
 def quiz_corporation(request):
+    user_agent = parse(request.META.get('HTTP_USER_AGENT'))
     # セッションから前回のcorporationを取得
     random_corporation = request.session.get("random_corporation")
 
@@ -103,6 +104,7 @@ def quiz_corporation(request):
         request.session.save()  # セッションを保存
 
     context = {
+        'user_agent': user_agent,
         'corporation': random_corporation,
         'result': result_message,
         'guess': guess,
