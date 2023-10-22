@@ -3,7 +3,7 @@ from .models import HighSchool
 from django.db.models import Q
 from user_agents import parse
 from random import choice
-
+import random
 
 def search_highschool(request):
     user_agent = parse(request.META.get('HTTP_USER_AGENT'))
@@ -63,18 +63,26 @@ def search_highschool(request):
 
 
 def quiz_highschool(request):
+    result_message = ""
+    answer = ""
+    guess = None
+    selectable_list = [i for i in range(44, 73)]
+
     user_agent = parse(request.META.get('HTTP_USER_AGENT'))
     # セッションから前回のhighschoolを取得
     random_highschool = request.session.get("random_highschool")
 
+    # セッションにランダムなhighschoolがある場合は選択肢を作る
+    if random_highschool:
+        selectable_list.remove(random_highschool.value)
+        choices = sorted(random.sample(selectable_list, 5) + [random_highschool.value])
+
     # セッションにランダムなhighschoolがない場合は新たに生成
-    if not random_highschool:
+    else:
         random_highschool = choice(HighSchool.objects.all())
         request.session["random_highschool"] = random_highschool
-
-    result_message = ""
-    answer = ""
-    guess = None
+        selectable_list.remove(random_highschool.value)
+        choices = sorted(random.sample(selectable_list, 5) + [random_highschool.value])
 
     if request.method == "POST":
         guess = int(request.POST["guess"])
@@ -93,13 +101,17 @@ def quiz_highschool(request):
         random_highschool = choice(HighSchool.objects.all())
         request.session["random_highschool"] = random_highschool
         request.session.save()  # セッションを保存
+        selectable_list = [i for i in range(44, 73)]
+        selectable_list.remove(random_highschool.value)
+        choices = sorted(random.sample(selectable_list, 5) + [random_highschool.value])
 
     context = {
         'user_agent': user_agent,
         'highschool': random_highschool,
         'result': result_message,
         'guess': guess,
-        "answer": answer
+        "answer": answer,
+        'choices': choices,
     }
 
     return render(request, 'high_school_quiz.html', context)

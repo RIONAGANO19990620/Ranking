@@ -14,11 +14,27 @@
 {% endif %}
 <h1>HighSchool Quiz</h1>
 
+<button class="btn btn-warning" type="button" onclick="toggleSelectMode()" style="float: right; margin-right: 20px">
+    <span id="switch"></span>
+</button>
+
 <form method="post" class="search-form">
     {% csrf_token %}
-    <p>企業名: {{ highschool.name }}</p>
-    <input class="search-input" type="number" id="guess" name="guess" required placeholder="就職偏差値を答える">
-    <button class="search-button btn btn-primary" type="submit">勝負します！</button>
+    <p>高校名: {{ highschool.name }}</p>
+
+    <div id="select_form">
+        {% for guess in choices %}
+            <input class="select-quiz" name="choice" type="button" value="{{ guess }}">
+        {% endfor %}
+        <br>
+        <button class="search-button btn btn-primary" type="submit" style="margin-top: 10px">勝負します！</button>
+    </div>
+
+    <div id="guess">
+        <input class="search-input" type="number" name="guess" placeholder="高校偏差値を答える" required>
+        <button class="search-button btn btn-primary" type="submit">勝負します！</button>
+    </div>
+
 </form>
 <div style="text-align: right; margin-right: 20px">
     <a href="{% url 'corporation_quiz' %}">企業さんへ</a>
@@ -52,5 +68,77 @@
     </div>
 {% endif %}
 </div>
+<script>
+    // 入力・選択形式の切り替え
+
+    // selectパラメータの初期値
+    let select = true;
+    updateSwitchText();
+
+    function toggleSelectMode() {
+        // ページ上のselect要素を操作して選択式/通常式を切り替える
+        if (select) {
+            document.getElementById("guess").style.display = "none";  // 非表示
+            document.getElementById("select_form").style.display = "block";  // 表示
+        } else {
+            document.getElementById("guess").style.display = "block";  // 表示
+            document.getElementById("select_form").style.display = "none";  // 非表示
+        }
+
+        updateSwitchText();
+
+        // selectパラメータの値を反転
+        select = !select;
+    }
+
+    function updateSwitchText() {
+        const switchElement = document.getElementById("switch");
+        if (select) {
+            switchElement.textContent = "入力形式にチャレンジ";
+        } else {
+            switchElement.textContent = "選択形式にチャレンジ";
+        }
+    }
+
+    // ページ読み込み時に初期状態を設定
+    window.onload = function () {
+        toggleSelectMode();
+    };
+</script>
+<script>
+    // 選択形式の解答取得
+
+    // 選択ボタンの場合
+    var choiceButtons = document.querySelectorAll('input[name="choice"]');
+    var selectedButton = null;
+
+    // 選択ボタンがクリックされたとき
+    choiceButtons.forEach(function (choiceButton) {
+        choiceButton.addEventListener('click', function (event) {
+            // 選択肢を取得
+            var selectedOption = event.target.value;
+            document.querySelector('input[name="guess"]').value = selectedOption;
+            // 選択されたボタンが既にある場合、そのボタンのスタイルを元に戻す
+            if (selectedButton) {
+                selectedButton.style.backgroundColor = "";
+            }
+            // クリックされたボタンを選択し、スタイルを変更
+            selectedButton = choiceButton;
+            selectedButton.style.backgroundColor = 'darkgray';
+        });
+    });
+
+    /*
+        // プルダウンの場合
+        var selectElement = document.getElementById("guess_select");
+        selectElement.addEventListener('change', (event) => {
+            var selectedOption = selectElement.options[selectElement.selectedIndex].value;
+
+            console.log(selectedOption);
+            document.querySelector('input[name="guess"]').value = selectedOption;
+        });
+
+     */
+</script>
 </body>
 </html>
