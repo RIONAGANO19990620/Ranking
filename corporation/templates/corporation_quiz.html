@@ -48,6 +48,7 @@
     {{ answer }}
 </h1>
 <div style="margin-top: 10vh">
+{% if quiz_history %}
     <h3>最新の10件のクイズ履歴</h3>
     <table>
         <thead style="color: black">
@@ -73,6 +74,7 @@
         {% endfor %}
         </tbody>
     </table>
+{% endif %}
 </div>
 
 </div>
