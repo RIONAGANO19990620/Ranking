@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Corporation
+from .models import Corporation, QuizHistory
 from django.db.models import Q
 import re
 from random import choice
@@ -82,6 +82,7 @@ def quiz_corporation(request):
     result_message = ""
     answer = ""
     guess = None
+    quiz_history = ""
     selectable_list = [i for i in range(55, 81)]
 
     user_agent = parse(request.META.get('HTTP_USER_AGENT'))
@@ -107,12 +108,26 @@ def quiz_corporation(request):
 
         if guess == random_corporation.value:
             result_message = "あたり😆"
+            is_correct = True
         elif guess >= random_corporation.value + 5:
             result_message = "そんな高くないで😫"
+            is_correct = False
         elif guess <= random_corporation.value - 5:
             result_message = "見くびりすぎなんちゃう😵"
+            is_correct = False
         else:
             result_message = "さげ😅"
+            is_correct = False
+
+        # クイズの出題履歴をデータベースに保存
+        quiz_history = QuizHistory(
+            question=random_corporation.name,
+            answer=str(random_corporation.value),
+            user_answer=str(guess),
+            is_correct=is_correct
+        )
+
+        quiz_history.save()
 
         # 新しいランダムな企業をセッションに保存
         random_corporation = choice(Corporation.objects.all())
@@ -121,6 +136,7 @@ def quiz_corporation(request):
         selectable_list = [i for i in range(55, 81)]
         selectable_list.remove(random_corporation.value)
         choices = sorted(random.sample(selectable_list, 5) + [random_corporation.value])
+        quiz_history = QuizHistory.objects.order_by('-created_at')[:10]
 
     context = {
         'user_agent': user_agent,
@@ -129,6 +145,7 @@ def quiz_corporation(request):
         'guess': guess,
         'answer': answer,
         'choices': choices,
+        'quiz_history': quiz_history,
     }
 
     return render(request, 'corporation_quiz.html', context)
