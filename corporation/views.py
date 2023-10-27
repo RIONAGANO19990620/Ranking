@@ -83,7 +83,7 @@ def quiz_corporation(request):
     answer = ""
     guess = None
     quiz_history = ""
-    selectable_list = [i for i in range(55, 81)]
+    selectable_list = [i for i in range(55, 82)]
 
     user_agent = parse(request.META.get('HTTP_USER_AGENT'))
     # セッションから前回のcorporationを取得
