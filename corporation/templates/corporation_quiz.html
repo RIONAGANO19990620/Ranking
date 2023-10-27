@@ -1,7 +1,9 @@
 {% include 'corporation_base.html' %}
+{% load static %}
 
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" xmlns="http://www.w3.org/1999/html">
+<script src="{% static 'jquery/data/js/datatable_original.js' %}"></script>
 <head>
     <title>就職偏差値サーチ</title>
 </head>
@@ -45,6 +47,34 @@
     <br>
     {{ answer }}
 </h1>
+<div style="margin-top: 10vh">
+    <h3>最新の10件のクイズ履歴</h3>
+    <table>
+        <thead style="color: black">
+        <th>企業名</th>
+        <th>正解</th>
+        <th>あなたの回答</th>
+        <th>正誤</th>
+        </thead>
+        <tbody>
+        {% for entry in quiz_history %}
+            <tr>
+                <td>{{ entry.question }}</td>
+                <td>{{ entry.answer }}</td>
+                <td>{{ entry.user_answer }}</td>
+                <td>
+                    {% if entry.is_correct %}
+                    ○
+                    {% else %}
+                    ×
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
 </div>
 
 {% if user_agent.device.family != 'iPhone' %}

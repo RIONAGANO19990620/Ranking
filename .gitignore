@@ -52,3 +52,6 @@ Thumbs.db
 __pycache__/
 *.pyc
 
+#migration
+**/migrations/
+
