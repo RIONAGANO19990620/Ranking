@@ -8,6 +8,8 @@
     <title>就職偏差値サーチ</title>
 </head>
 <body>
+<audio id="correctAudio" src="{% static 'sound/70over.mp3' %}" preload="auto" style="display: none"></audio>
+
 <!--ここからメイン-->
 {% if user_agent.device.family == "iPhone" %}
     <div class="center-main-content">
@@ -48,33 +50,35 @@
     {{ answer }}
 </h1>
 <div style="margin-top: 10vh">
-{% if quiz_history %}
-    <h3>最新の10件のクイズ履歴</h3>
-    <table>
-        <thead style="color: black">
-        <th>企業名</th>
-        <th>正解</th>
-        <th>あなたの回答</th>
-        <th>正誤</th>
-        </thead>
-        <tbody>
-        {% for entry in quiz_history %}
+    {% if quiz_history %}
+        <h3>最新の10件のクイズ履歴</h3>
+        <table>
+            <thead style="color: black">
             <tr>
-                <td>{{ entry.question }}</td>
-                <td>{{ entry.answer }}</td>
-                <td>{{ entry.user_answer }}</td>
-                <td>
-                    {% if entry.is_correct %}
-                    ○
-                    {% else %}
-                    ×
-                    {% endif %}
-                </td>
+            <th>企業名</th>
+            <th>正解</th>
+            <th>あなたの回答</th>
+            <th>正誤</th>
             </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-{% endif %}
+            </thead>
+            <tbody>
+            {% for entry in quiz_history %}
+                <tr>
+                    <td>{{ entry.question }}</td>
+                    <td>{{ entry.answer }}</td>
+                    <td>{{ entry.user_answer }}</td>
+                    <td>
+                        {% if entry.is_correct %}
+                            ○
+                        {% else %}
+                            ×
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
 </div>
 
 </div>
@@ -171,6 +175,16 @@
         });
 
      */
+</script>
+<script>
+    // クイズの正誤を判定するロジック
+    var isCorrect = {{ latest_quiz_history.is_correct|yesno:"true,false" }}
+    // 正解の場合
+    if (isCorrect) {
+        // 正解音を再生
+        var audio = document.getElementById("correctAudio");
+        audio.play();
+    }
 </script>
 </body>
 </html>

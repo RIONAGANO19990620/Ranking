@@ -84,6 +84,7 @@ def quiz_corporation(request):
     guess = None
     quiz_history = ""
     selectable_list = [i for i in range(55, 82)]
+    latest_quiz_history = None
 
     user_agent = parse(request.META.get('HTTP_USER_AGENT'))
     # セッションから前回のcorporationを取得
@@ -137,6 +138,7 @@ def quiz_corporation(request):
         selectable_list.remove(random_corporation.value)
         choices = sorted(random.sample(selectable_list, 5) + [random_corporation.value])
         quiz_history = QuizHistory.objects.order_by('-created_at')[:10]
+        latest_quiz_history = QuizHistory.objects.order_by('-created_at').first()
 
     context = {
         'user_agent': user_agent,
@@ -146,6 +148,7 @@ def quiz_corporation(request):
         'answer': answer,
         'choices': choices,
         'quiz_history': quiz_history,
+        'latest_quiz_history': latest_quiz_history,
     }
 
     return render(request, 'corporation_quiz.html', context)
