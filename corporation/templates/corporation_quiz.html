@@ -12,6 +12,7 @@
 <audio id="from66to70Audio" src="{% static 'sound/from66to70.mp3' %}" preload="auto" style="display: none"></audio>
 <audio id="from60to66Audio" src="{% static 'sound/from60to66.mp3' %}" preload="auto" style="display: none"></audio>
 <audio id="under60Audio" src="{% static 'sound/under60.mp3' %}" preload="auto" style="display: none"></audio>
+<audio id="wrongAudio" src="{% static 'sound/wrong.mp3' %}" preload="auto" style="display: none"></audio>
 
 <!--ここからメイン-->
 {% if user_agent.device.family == "iPhone" %}
@@ -199,6 +200,10 @@
             var audio = document.getElementById("under60Audio");
         }
         audio.play();
+    }
+    else {
+        var audio = document.getElementById("wrongAudio");
+        audio.play()
     }
 </script>
 </body>
