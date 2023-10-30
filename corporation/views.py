@@ -134,7 +134,7 @@ def quiz_corporation(request):
         random_corporation = choice(Corporation.objects.all())
         request.session["random_corporation"] = random_corporation
         request.session.save()  # セッションを保存
-        selectable_list = [i for i in range(55, 81)]
+        selectable_list = [i for i in range(55, 82)]
         selectable_list.remove(random_corporation.value)
         choices = sorted(random.sample(selectable_list, 5) + [random_corporation.value])
         quiz_history = QuizHistory.objects.order_by('-created_at')[:10]

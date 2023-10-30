@@ -8,7 +8,10 @@
     <title>就職偏差値サーチ</title>
 </head>
 <body>
-<audio id="correctAudio" src="{% static 'sound/70over.mp3' %}" preload="auto" style="display: none"></audio>
+<audio id="70overAudio" src="{% static 'sound/70over.mp3' %}" preload="auto" style="display: none"></audio>
+<audio id="from66to70Audio" src="{% static 'sound/from66to70.mp3' %}" preload="auto" style="display: none"></audio>
+<audio id="from60to66Audio" src="{% static 'sound/from60to66.mp3' %}" preload="auto" style="display: none"></audio>
+<audio id="under60Audio" src="{% static 'sound/under60.mp3' %}" preload="auto" style="display: none"></audio>
 
 <!--ここからメイン-->
 {% if user_agent.device.family == "iPhone" %}
@@ -179,10 +182,22 @@
 <script>
     // クイズの正誤を判定するロジック
     var isCorrect = {{ latest_quiz_history.is_correct|yesno:"true,false" }}
+    var Level = {{ latest_quiz_history.answer }}
     // 正解の場合
     if (isCorrect) {
         // 正解音を再生
-        var audio = document.getElementById("correctAudio");
+        if (Level >= 70) {
+            var audio = document.getElementById("70overAudio");
+        }
+        else if (Level >= 66 && Level < 70) {
+            var audio = document.getElementById("from66to70Audio");
+            }
+        else if (Level >= 60 && Level < 66) {
+            var audio = document.getElementById("from60to66Audio");
+        }
+        else {
+            var audio = document.getElementById("under60Audio");
+        }
         audio.play();
     }
 </script>
