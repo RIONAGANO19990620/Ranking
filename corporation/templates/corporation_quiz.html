@@ -40,7 +40,7 @@
 
     <div id="guess">
         <input class="search-input" type="number" name="guess" placeholder="就職偏差値を答える" required>
-        <button class="search-button btn btn-primary" type="submit">勝負します！</button>
+        <button class="search-button btn btn-primary" type="submit" id="challenge">勝負します！</button>
     </div>
 
 </form>
@@ -59,10 +59,10 @@
         <table>
             <thead style="color: black">
             <tr>
-            <th>企業名</th>
-            <th>正解</th>
-            <th>あなたの回答</th>
-            <th>正誤</th>
+                <th>企業名</th>
+                <th>正解</th>
+                <th>あなたの回答</th>
+                <th>正誤</th>
             </tr>
             </thead>
             <tbody>
@@ -111,8 +111,16 @@
 <script>
     // 入力・選択形式の切り替え
 
-    // selectパラメータの初期値
-    let select = true;
+    // ページ読み込み時にlocalStorageからselectの値を読み込む
+    window.onload = function () {
+        if (localStorage.getItem("select")) {
+            select = localStorage.getItem("select");
+        } else {
+            // 初回訪問時など、localStorageに値がない場合のデフォルト値
+            select = true;
+        }
+        toggleSelectMode();
+    };
     updateSwitchText();
 
     function toggleSelectMode() {
@@ -129,6 +137,9 @@
 
         // selectパラメータの値を反転
         select = !select;
+
+        // ページがリロードされてもselectの値を保持
+        localStorage.setItem("select", select)
     }
 
     function updateSwitchText() {
@@ -140,10 +151,6 @@
         }
     }
 
-    // ページ読み込み時に初期状態を設定
-    window.onload = function () {
-        toggleSelectMode();
-    };
 </script>
 <script>
     // 選択形式の解答取得
@@ -181,28 +188,30 @@
      */
 </script>
 <script>
+    // クイズの正誤に応じた音声を流す
     // クイズの正誤を判定するロジック
-    var isCorrect = {{ latest_quiz_history.is_correct|yesno:"true,false" }}
-    var Level = {{ latest_quiz_history.answer }}
-    // 正解の場合
+    var isCorrect =
+    {{ latest_quiz_history.is_correct|yesno:"true,false" }}
+    var Level =
+    {{ latest_quiz_history.answer }}
+
     if (isCorrect) {
         // 正解音を再生
         if (Level >= 70) {
             var audio = document.getElementById("70overAudio");
-        }
-        else if (Level >= 66 && Level < 70) {
+        } else if (Level >= 66 && Level < 70) {
             var audio = document.getElementById("from66to70Audio");
-            }
-        else if (Level >= 60 && Level < 66) {
+        } else if (Level >= 60 && Level < 66) {
             var audio = document.getElementById("from60to66Audio");
-        }
-        else {
+        } else {
             var audio = document.getElementById("under60Audio");
         }
-        audio.play();
-    }
-    else {
+
+        audio.play()
+
+    } else {
         var audio = document.getElementById("wrongAudio");
+
         audio.play()
     }
 </script>

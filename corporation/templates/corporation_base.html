@@ -10,6 +10,20 @@
     <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
 
     <title>Corporation Search | なんでもランキング.com</title>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-0HR9Q8GFE8"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-0HR9Q8GFE8');
+    </script>
+
     <style>
         body {
             background: #333333;
@@ -83,9 +97,9 @@
         <!-- 左上サービス名 -->
         <p class="d-flex pb-3 mb-3">
             {% if user_agent.device.family == "iPhone" %}
-            <span class="fs-5 fw-semibold" style="margin-top: 50px"><strong>なんでもランキング<br>.com</strong></span>
+                <span class="fs-5 fw-semibold" style="margin-top: 50px"><strong>なんでもランキング<br>.com</strong></span>
             {% else %}
-            <span class="fs-5 fw-semibold"><strong>なんでもランキング<br>.com</strong></span>
+                <span class="fs-5 fw-semibold"><strong>なんでもランキング<br>.com</strong></span>
             {% endif %}
         </p>
         <!-- 業界ごと検索 -->
