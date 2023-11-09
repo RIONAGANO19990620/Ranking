@@ -33,16 +33,12 @@ class DataManager:
         data = pd.read_csv(input_path, encoding="utf-8")
         data = data.fillna('')
         for index, row in data.iterrows():
-            name = row['関東']
-            if name == '':
-                name = row['近畿']
-            if name == '':
-                name = row['その他']
+            name = row['hsname'].replace("高等学校", "")
             try:
-                output_dict[int(float(row['偏差値']))].append(name)
+                output_dict[int(float(row['devi']))].append(name)
             except:
                 try:
-                    output_dict[int(float(row['偏差値']))] = [name]
+                    output_dict[int(float(row['devi']))] = [name]
                 except:
                     pass
         with open(output_path, mode="wt", encoding="utf-8") as f:
@@ -78,8 +74,8 @@ class DataManager:
 
 
 if __name__ == '__main__':
-    input_path = Path('/Users/taguchinaoki/Ranking/Data/highschool.csv')
-    output_path = Path('/Users/taguchinaoki/Ranking/Data/high_school.json')
+    input_path = Path('/Users/taguchinaoki/Ranking/Data/highschool2.csv')
+    output_path = Path('/Users/taguchinaoki/Ranking/Data/high_school2.json')
     DataManager.high_school_manager(input_path, output_path)
 
     input_path = Path('/Users/taguchinaoki/Ranking/Data/university.csv')

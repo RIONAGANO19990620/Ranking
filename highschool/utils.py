@@ -16,10 +16,12 @@ def create_model_from_json(path: str):
     for item in data:
         name_list = data[item]
         for name in name_list:
-            model = HighSchool(name=name, value=item)
-            model.save()
+            model, created = HighSchool.objects.get_or_create(name=name, value=item)
+            if not created:
+                model.value = item
+                model.save()
 
 
 if __name__ == '__main__':
-    path = '/Users/naganorio/Desktop/Ranking/Data/high_school.json'
+    path = '/Users/taguchinaoki/Ranking/Data/high_school2.json'
     create_model_from_json(path)
