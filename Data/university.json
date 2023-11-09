@@ -79,6 +79,13 @@
   {
     "model": "university.university",
     "fields": {
+      "name": "慶応",
+      "rank": "A4"
+    }
+  },
+  {
+    "model": "university.university",
+    "fields": {
       "name": "筑波",
       "rank": "A5"
     }
@@ -100,6 +107,13 @@
   {
     "model": "university.university",
     "fields": {
+      "name": "早稲田",
+      "rank": "A5"
+    }
+  },
+  {
+    "model": "university.university",
+    "fields": {
       "name": "横浜国立",
       "rank": "B1"
     }
@@ -108,6 +122,13 @@
     "model": "university.university",
     "fields": {
       "name": "お茶の水女子",
+      "rank": "B1"
+    }
+  },
+  {
+    "model": "university.university",
+    "fields": {
+      "name": "国際基督教*ICU",
       "rank": "B1"
     }
   },
@@ -163,6 +184,20 @@
   {
     "model": "university.university",
     "fields": {
+      "name": "上智",
+      "rank": "B3"
+    }
+  },
+  {
+    "model": "university.university",
+    "fields": {
+      "name": "東京理科",
+      "rank": "B3"
+    }
+  },
+  {
+    "model": "university.university",
+    "fields": {
       "name": "岡山",
       "rank": "B4"
     }
@@ -192,6 +227,20 @@
     "model": "university.university",
     "fields": {
       "name": "京都府立",
+      "rank": "B5"
+    }
+  },
+  {
+    "model": "university.university",
+    "fields": {
+      "name": "明治",
+      "rank": "B5"
+    }
+  },
+  {
+    "model": "university.university",
+    "fields": {
+      "name": "同志社",
       "rank": "B5"
     }
   },
@@ -254,6 +303,20 @@
   {
     "model": "university.university",
     "fields": {
+      "name": "青山学院",
+      "rank": "C2"
+    }
+  },
+  {
+    "model": "university.university",
+    "fields": {
+      "name": "立教",
+      "rank": "C2"
+    }
+  },
+  {
+    "model": "university.university",
+    "fields": {
       "name": "航空保安",
       "rank": "C3"
     }
@@ -289,6 +352,13 @@
   {
     "model": "university.university",
     "fields": {
+      "name": "中央",
+      "rank": "C3"
+    }
+  },
+  {
+    "model": "university.university",
+    "fields": {
       "name": "信州",
       "rank": "C4"
     }
@@ -297,6 +367,34 @@
     "model": "university.university",
     "fields": {
       "name": "岐阜",
+      "rank": "C4"
+    }
+  },
+  {
+    "model": "university.university",
+    "fields": {
+      "name": "法政",
+      "rank": "C4"
+    }
+  },
+  {
+    "model": "university.university",
+    "fields": {
+      "name": "学習院",
+      "rank": "C4"
+    }
+  },
+  {
+    "model": "university.university",
+    "fields": {
+      "name": "豊田工業",
+      "rank": "C4"
+    }
+  },
+  {
+    "model": "university.university",
+    "fields": {
+      "name": "芝浦",
       "rank": "C4"
     }
   },
@@ -324,7 +422,28 @@
   {
     "model": "university.university",
     "fields": {
+      "name": "立命館",
+      "rank": "C5"
+    }
+  },
+  {
+    "model": "university.university",
+    "fields": {
       "name": "三重",
+      "rank": "D1"
+    }
+  },
+  {
+    "model": "university.university",
+    "fields": {
+      "name": "関西学院",
+      "rank": "D1"
+    }
+  },
+  {
+    "model": "university.university",
+    "fields": {
+      "name": "関西",
       "rank": "D1"
     }
   }

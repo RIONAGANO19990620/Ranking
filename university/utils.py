@@ -21,5 +21,5 @@ def create_model_from_json(path: str):
 
 
 if __name__ == '__main__':
-    path = '/Users/naganorio/Desktop/Ranking/Data/university.json'
+    path = '/Users/taguchinaoki/Ranking/Data/university.json'
     create_model_from_json(path)
