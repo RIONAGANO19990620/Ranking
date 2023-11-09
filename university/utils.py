@@ -16,8 +16,10 @@ def create_model_from_json(path: str):
     for item in data:
         name_list = data[item]
         for name in name_list:
-            model = University(name=name, value=item)
-            model.save()
+            model, created = University.objects.get_or_create(name=name, value=item)
+            if not created:
+                model.value = item
+                model.save()
 
 
 if __name__ == '__main__':
