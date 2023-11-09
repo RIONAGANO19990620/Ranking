@@ -66,7 +66,7 @@ def quiz_highschool(request):
     result_message = ""
     answer = ""
     guess = None
-    selectable_list = [i for i in range(44, 73)]
+    selectable_list = [i for i in range(61, 80)]
 
     user_agent = parse(request.META.get('HTTP_USER_AGENT'))
     # セッションから前回のhighschoolを取得
@@ -101,7 +101,7 @@ def quiz_highschool(request):
         random_highschool = choice(HighSchool.objects.all())
         request.session["random_highschool"] = random_highschool
         request.session.save()  # セッションを保存
-        selectable_list = [i for i in range(44, 73)]
+        selectable_list = [i for i in range(61, 80)]
         selectable_list.remove(random_highschool.value)
         choices = sorted(random.sample(selectable_list, 5) + [random_highschool.value])
 

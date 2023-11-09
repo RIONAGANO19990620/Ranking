@@ -9,6 +9,10 @@ from django import setup
 setup()
 from university.models import University
 
+"""
+これ使えないからterminalでpython manage.py loaddata Data/university.json
+"""
+
 
 def create_model_from_json(path: str):
     with open(path) as f:
