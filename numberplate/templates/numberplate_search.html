@@ -1,9 +1,9 @@
-{% include 'corporation_base.html' %}
+{% include 'numberplate_base.html' %}
 
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <title>就職偏差値サーチ</title>
+    <title>ナンバープレートサーチ</title>
 </head>
 <body>
 <!--ここからメイン-->
@@ -12,28 +12,28 @@
 {% else %}
     <div class="main-content">
 {% endif %}
-<h1>Corporation Search</h1>
+<h1>NumberPlate Search</h1>
 <form class="search-form" method="get">
-    <input class="search-input" type="text" name="query" value="{{ query }}" placeholder="企業名or就職偏差値">
+    <input class="search-input" type="text" name="query" value="{{ query }}" placeholder="ナンバー名or偏差値">
     <button class="search-button btn btn-primary" type="submit">Search</button>
 </form>
 <div style="text-align: right; margin-right: 20px">
     <a href="high_school">高校さんへ</a><br>
     <a href="university">大学さんへ</a><br>
-<a href="numberplate">ナンバープレートさんへ</a>
+    <a href="./">企業さんへ</a>
 </div>
 <div class="search-results">
-    {% if corporations %}
+    {% if numberplates %}
         <h2>Search Results:</h2>
         <table>
             <tr>
-                <th><font color="#333333">企業名(職種)</font></th>
-                <th><font color="#333333">就職偏差値</font></th>
+                <th><font color="#333333">ナンバープレート</font></th>
+                <th><font color="#333333">偏差値</font></th>
             </tr>
-            {% for corporation in corporations %}
+            {% for numberplate in numberplates %}
                 <tr>
-                    <td>{{ corporation.name }}</td>
-                    <td>{{ corporation.value }}</td>
+                    <td>{{ numberplate.name }}</td>
+                    <td>{{ numberplate.value }}</td>
                 </tr>
             {% endfor %}
         </table>
@@ -58,7 +58,7 @@
                 <li><a href="{% url 'university:university_quiz' %}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">大学さん</a></li>
             </ul>
         </div>
-        <div style="margin-top: 10px">© 2023 就職偏差値 格付けの会</div>
+        <div style="margin-top: 10px">© 2023 格付けの会</div>
     </div>
 {% endif %}
 </div>

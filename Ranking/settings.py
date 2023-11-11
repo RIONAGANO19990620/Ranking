@@ -41,7 +41,8 @@ INSTALLED_APPS = [
 
     'corporation.apps.CorporationConfig',
     'highschool.apps.HighschoolConfig',
-    'university.apps.UniversityConfig'
+    'university.apps.UniversityConfig',
+    'numberplate.apps.NumberPlateConfig',
 ]
 
 MIDDLEWARE = [
