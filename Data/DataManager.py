@@ -20,7 +20,7 @@ class DataManager:
         while num > cls.end_num:
             st = data.find(str(int(num)))
             end = data.find(str(int(num - 1)))
-            target = data[st+3: end-1].split()
+            target = data[st + 3: end - 1].split()
             output_dict[str(int(num))] = target
             data = data[end:]
             num -= 1
@@ -72,6 +72,22 @@ class DataManager:
         with open(output_path, mode="wt", encoding="utf-8") as f:
             json.dump(output, f, ensure_ascii=False, indent=2)
 
+    @classmethod
+    def number_plate_manager(cls, input_path: Path, output_path: Path):
+        output_dict = {}
+        data = pd.read_csv(input_path, encoding='utf-8')
+        for index, row in data.iterrows():
+            name = row['number']
+            try:
+                output_dict[int(float(row['devi']))].append(name)
+            except:
+                try:
+                    output_dict[int(float(row['devi']))] = [name]
+                except:
+                    pass
+        with open(output_path, mode="wt", encoding="utf-8") as f:
+            json.dump(output_dict, f, ensure_ascii=False, indent=2)
+
 
 if __name__ == '__main__':
     input_path = Path('/Users/taguchinaoki/Ranking/Data/highschool2.csv')
@@ -81,3 +97,7 @@ if __name__ == '__main__':
     input_path = Path('/Users/taguchinaoki/Ranking/Data/university.csv')
     output_path = Path('/Users/taguchinaoki/Ranking/Data/university.json')
     DataManager.university_manager(input_path, output_path)
+
+    input_path = Path('/Users/taguchinaoki/Ranking/Data/NumberPlate.csv')
+    output_path = Path('/Users/taguchinaoki/Ranking/Data/NumberPlate.json')
+    DataManager.number_plate_manager(input_path, output_path)

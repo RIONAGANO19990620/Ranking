@@ -12,34 +12,35 @@
 {% else %}
     <div class="main-content">
 {% endif %}
-    <h1>HighSchool Search</h1>
-    <form class="search-form" method="get">
-        <input class="search-input" type="text" name="query" value="{{ query }}" placeholder="高校名or高校偏差値">
-        <button class="search-button btn btn-primary" type="submit">Search</button>
-    </form>
+<h1>HighSchool Search</h1>
+<form class="search-form" method="get">
+    <input class="search-input" type="text" name="query" value="{{ query }}" placeholder="高校名or高校偏差値">
+    <button class="search-button btn btn-primary" type="submit">Search</button>
+</form>
 <div style="text-align: right; margin-right: 20px">
-    <a href="../">企業さんへ</a>
-    <a href="./university">大学さんへ</a>
+    <a href="../">企業さんへ</a><br>
+    <a href="./university">大学さんへ</a><br>
+    <a href="numberplate">ナンバープレートさんへ</a>
 </div>
-    <div class="search-results">
-        {% if high_schools %}
-            <h2>Search Results:</h2>
-            <table>
+<div class="search-results">
+    {% if high_schools %}
+        <h2>Search Results:</h2>
+        <table>
+            <tr>
+                <th><font color="#333333">高校名</font></th>
+                <th><font color="#333333">高校偏差値(駿台)</font></th>
+            </tr>
+            {% for high_school in high_schools %}
                 <tr>
-                    <th><font color="#333333">高校名</font></th>
-                    <th><font color="#333333">高校偏差値(駿台)</font></th>
+                    <td>{{ high_school.name }}</td>
+                    <td>{{ high_school.value }}</td>
                 </tr>
-                {% for high_school in high_schools %}
-                    <tr>
-                        <td>{{ high_school.name }}</td>
-                        <td>{{ high_school.value }}</td>
-                    </tr>
-                {% endfor %}
-            </table>
-        {% else %}
-            <p class="no-results">No results found.</p>
-        {% endif %}
-    </div>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p class="no-results">No results found.</p>
+    {% endif %}
+</div>
 </div>
 
 {% if user_agent.device.family != 'iPhone' %}
@@ -52,9 +53,12 @@
         </button>
         <div class="collapse" id="account-collapse">
             <ul class="btn-toggle-nav list-unstyled fw-normal pb-1">
-                <li><a href="{% url 'corporation_quiz' %}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">企業さん</a></li>
-                <li><a href="{% url 'highschool:high_school_quiz' %}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">高校さん</a></li>
-                <li><a href="{% url 'university:university_quiz' %}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">大学さん</a></li>
+                <li><a href="{% url 'corporation_quiz' %}"
+                       class="link-body-emphasis d-inline-flex text-decoration-none rounded">企業さん</a></li>
+                <li><a href="{% url 'highschool:high_school_quiz' %}"
+                       class="link-body-emphasis d-inline-flex text-decoration-none rounded">高校さん</a></li>
+                <li><a href="{% url 'university:university_quiz' %}"
+                       class="link-body-emphasis d-inline-flex text-decoration-none rounded">大学さん</a></li>
             </ul>
         </div>
         <div style="margin-top: 10px">© 2023 駿台 格付けの会</div>
