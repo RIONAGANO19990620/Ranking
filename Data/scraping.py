@@ -31,7 +31,7 @@ for pageno in tqdm(range(1, 504)):
     df = pd.concat([df, pd.DataFrame({'hsname': hsname_list, 'devi': devi_list})])
 
 # 以下でrankingに含む高校さんを剪定
-df_ranking = df[df["devi"] > 60]
+df_ranking = df[df["devi"] > 67]
 
 df.to_csv('highschool_all.csv')
 df_ranking.to_csv('highschool2.csv')
