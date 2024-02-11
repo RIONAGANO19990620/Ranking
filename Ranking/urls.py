@@ -21,5 +21,6 @@ urlpatterns = [
     path('', include('corporation.urls')),
     path('high_school', include('highschool.urls')),
     path('university', include('university.urls')),
-    path('numberplate', include('numberplate.urls'))
+    path('numberplate', include('numberplate.urls')),
+    path('city_bus', include('city_bus.urls')),
 ]

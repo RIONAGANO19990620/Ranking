@@ -88,6 +88,26 @@ class DataManager:
         with open(output_path, mode="wt", encoding="utf-8") as f:
             json.dump(output_dict, f, ensure_ascii=False, indent=2)
 
+    @classmethod
+    def city_bus_manager(cls, input_path: Path, output_path: Path):
+        output_dict = {}
+        data = pd.read_csv(input_path, encoding='utf-8')
+        for index, row in data.iterrows():
+            name = row['number']
+            course = row['course']
+            try:
+                # スコアを整数に変換し、既存のキーのリストに新しい{番号: コース}の辞書を追加
+                if int(float(row['score'])) in output_dict:
+                    output_dict[int(float(row['score']))].update({name: course})
+                else:
+                    # 存在しないキーの場合は新しいキーと値を追加
+                    output_dict[int(float(row['score']))] = {name: course}
+            except ValueError:
+                # スコアが不正な値の場合は無視
+                pass
+        with open(output_path, mode="wt", encoding="utf-8") as f:
+            json.dump(output_dict, f, ensure_ascii=False, indent=2)
+
 
 if __name__ == '__main__':
     input_path = Path('/Users/taguchinaoki/Ranking/Data/highschool2.csv')
@@ -101,3 +121,7 @@ if __name__ == '__main__':
     input_path = Path('/Users/taguchinaoki/Ranking/Data/NumberPlate.csv')
     output_path = Path('/Users/taguchinaoki/Ranking/Data/NumberPlate.json')
     DataManager.number_plate_manager(input_path, output_path)
+
+    input_path = Path('/Users/taguchinaoki/Ranking/Data/CityBus.csv')
+    output_path = Path('/Users/taguchinaoki/Ranking/Data/CityBus.json')
+    DataManager.city_bus_manager(input_path, output_path)

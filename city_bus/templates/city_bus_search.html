@@ -1,9 +1,9 @@
-{% include 'numberplate_base.html' %}
+{% include 'city_bus_base.html' %}
 
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <title>ナンバープレートサーチ</title>
+    <title>市営バスサーチ</title>
 </head>
 <body>
 <!--ここからメイン-->
@@ -12,29 +12,31 @@
 {% else %}
     <div class="main-content">
 {% endif %}
-<h1>NumberPlate Search</h1>
+<h1>City Bus Search</h1>
 <form class="search-form" method="get">
-    <input class="search-input" type="text" name="query" value="{{ query }}" placeholder="ナンバー名or偏差値">
+    <input class="search-input" type="text" name="query" value="{{ query }}" placeholder="系統名or営業係数">
     <button class="search-button btn btn-primary" type="submit">Search</button>
 </form>
 <div style="text-align: right; margin-right: 20px">
+<a href="../">企業さんへ</a><br>
     <a href="high_school">高校さんへ</a><br>
     <a href="university">大学さんへ</a><br>
-    <a href="./">企業さんへ</a><br>
-    <a href="city_bus">市バスさんへ</a>
+<a href="numberplate">ナンバープレートさんへ</a>
 </div>
 <div class="search-results">
-    {% if numberplates %}
+    {% if city_bus %}
         <h2>Search Results:</h2>
         <table>
             <tr>
-                <th><font color="#333333">ナンバープレート</font></th>
-                <th><font color="#333333">偏差値</font></th>
+                <th><font color="#333333">バス系統</font></th>
+                <th><font color="#333333">経過地</font></th>
+                <th><font color="#333333">営業係数偏差値</font></th>
             </tr>
-            {% for numberplate in numberplates %}
+            {% for bus in city_bus %}
                 <tr>
-                    <td>{{ numberplate.name }}</td>
-                    <td>{{ numberplate.value }}</td>
+                    <td>{{ bus.number }}</td>
+                    <td>{{ bus.course }}</td>
+                    <td>{{ bus.sale }}</td>
                 </tr>
             {% endfor %}
         </table>
@@ -59,7 +61,7 @@
                 <li><a href="{% url 'university:university_quiz' %}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">大学さん</a></li>
             </ul>
         </div>
-        <div style="margin-top: 10px">© 2023 格付けの会</div>
+        <div style="margin-top: 10px">© 2023 就職偏差値 格付けの会</div>
     </div>
 {% endif %}
 </div>

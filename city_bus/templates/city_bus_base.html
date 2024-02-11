@@ -1,0 +1,207 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <!-- CSSの設定ファイル -->
+    <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
+
+    <title>Corporation Search | なんでもランキング.com</title>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-0HR9Q8GFE8"></script>
+
+    <style>
+        body {
+            background: #333333;
+            color: white;
+            font-family: Arial, sans-serif;
+            min-height: 100vh; /* ページの最低高さをビューポートの高さに設定 */
+        }
+
+        .search-form {
+            margin: 20px;
+        }
+
+        .search-input {
+            width: 200px;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 10px;
+        }
+
+        .search-button {
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+
+        .search-results {
+            margin-top: 20px;
+            margin-left: 50px;
+        }
+
+        table {
+            width: 80%;
+            border-collapse: collapse;
+            margin: 0 auto;
+        }
+
+        th, td {
+            padding: 8px;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .select-quiz {
+            width: 10vw;
+        }
+    </style>
+</head>
+<body>
+
+<main class="d-flex">
+
+    {% if user_agent.device.family == 'iPhone' %}
+        <div class="hamburger-menu" id="hamburger-menu">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+        <!-- 折り畳み可能リストのサイドバー -->
+        <div class="hidden-sidebar" id="sidebar">
+    {% else %}
+        <div class="sidebar">
+    {% endif %}
+
+    <div class="flex-shrink-0 p-3" style="width: 280px; margin-bottom: 100px">
+        <!-- 左上サービス名 -->
+        <p class="d-flex pb-3 mb-3">
+            {% if user_agent.device.family == "iPhone" %}
+                <span class="fs-5 fw-semibold" style="margin-top: 50px"><strong>なんでもランキング<br>.com</strong></span>
+            {% else %}
+                <span class="fs-5 fw-semibold"><strong>なんでもランキング<br>.com</strong></span>
+            {% endif %}
+        </p>
+        <!-- 業界ごと検索 -->
+        <p class="d-flex pb-3 mb-3 border-top">
+            <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0"
+                    data-bs-toggle="collapse" data-bs-target="#industry-collapse" aria-expanded="false">
+                <span class="fs-5">色別サーチ</span></button>
+        </p>
+        <ul class="list-unstyled ps-0 collapse" id="industry-collapse">
+                            <li class="mb-2"><a href='{% url 'corporation' %}?query=三菱商事 三井物産 伊藤忠商事　"住友商事" "丸紅" 豊田通商 双日'
+                                   class="link-body-emphasis d-inline-flex text-decoration-none rounded">オレンジ系統</a></li>
+            <li class="mb-2"><a href='{% url 'corporation' %}?query=三菱商事 三井物産 伊藤忠商事　"住友商事" "丸紅" 豊田通商 双日'
+                                   class="link-body-emphasis d-inline-flex text-decoration-none rounded">青系統</a></li>
+            <li class="mb-2"><a href='{% url 'corporation' %}?query=三菱商事 三井物産 伊藤忠商事　"住友商事" "丸紅" 豊田通商 双日'
+                                   class="link-body-emphasis d-inline-flex text-decoration-none rounded">白系統</a></li>
+
+        </ul>
+        <!--  業界ごと検索 END -->
+
+        <!-- 偏差値別検索 -->
+        <p class="d-flex pb-3 mb-3 border-top">
+            <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0"
+                    data-bs-toggle="collapse" data-bs-target="#rank-collapse" aria-expanded="false">
+                <span class="fs-5">ランク別サーチ</span></button>
+        </p>
+        <div class="collapse" id="rank-collapse">
+            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1">
+                <li><a href='{% url 'corporation' %}?query=79~81'
+                       class="link-body-emphasis d-inline-flex text-decoration-none rounded">スーパーエリート</a></li>
+                <li><a href='{% url 'corporation' %}?query=76~78'
+                       class="link-body-emphasis d-inline-flex text-decoration-none rounded">海内トップ大勝ち</a></li>
+                <li><a href='{% url 'corporation' %}?query=70~75'
+                       class="link-body-emphasis d-inline-flex text-decoration-none rounded">東京一工勝ち</a></li>
+                <li><a href='{% url 'corporation' %}?query=68 69'
+                       class="link-body-emphasis d-inline-flex text-decoration-none rounded">早慶地帝優秀層勝ち</a>
+                </li>
+                <li><a href='{% url 'corporation' %}?query=63~67'
+                       class="link-body-emphasis d-inline-flex text-decoration-none rounded">早慶地帝勝ち</a></li>
+                <li><a href='{% url 'corporation' %}?query=60~62'
+                       class="link-body-emphasis d-inline-flex text-decoration-none rounded">MARCH関関同立優秀層勝ち</a>
+                </li>
+                <li><a href='{% url 'corporation' %}?query=55~59'
+                       class="link-body-emphasis d-inline-flex text-decoration-none rounded">MARCH関関同立勝ち</a>
+                </li>
+            </ul>
+        </div>
+        <!-- 偏差値別検索 END -->
+        <!-- アカウントメニュー -->
+        {% if user_agent.device.family == 'iPhone' %}
+            {% if "quiz" in request.get_full_path %}
+                <div class="hidden-account-menu border-top" id="hidden-account-menu">
+                    <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#account-collapse" aria-expanded="false">
+                        表検索はこちら
+                    </button>
+                    <div class="collapse" id="account-collapse">
+                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1">
+                            <li><a href="./"
+                                   class="link-body-emphasis d-inline-flex text-decoration-none rounded">企業さん</a></li>
+                            <li><a href="high_school"
+                                   class="link-body-emphasis d-inline-flex text-decoration-none rounded">高校さん</a></li>
+                            <li><a href="university"
+                                   class="link-body-emphasis d-inline-flex text-decoration-none rounded">大学さん</a></li>
+                        </ul>
+                    </div>
+                    <div style="margin-top: 10px">© 2023 就職偏差値 格付けの会</div>
+                </div>
+            {% else %}
+                <div class="hidden-account-menu border-top" id="hidden-account-menu">
+                    <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#account-collapse" aria-expanded="false">
+                        クイズはこちら
+                    </button>
+                    <div class="collapse" id="account-collapse">
+                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1">
+                            <li><a href="{% url 'corporation_quiz' %}"
+                                   class="link-body-emphasis d-inline-flex text-decoration-none rounded">企業さん</a></li>
+                            <li><a href="{% url 'highschool:high_school_quiz' %}"
+                                   class="link-body-emphasis d-inline-flex text-decoration-none rounded">高校さん</a></li>
+                            <li><a href="{% url 'university:university_quiz' %}"
+                                   class="link-body-emphasis d-inline-flex text-decoration-none rounded">大学さん</a></li>
+                        </ul>
+                    </div>
+                    <div style="margin-top: 10px">© 2023 就職偏差値 格付けの会</div>
+                </div>
+            {% endif %}
+        {% endif %}
+        <!-- アカウントメニュー END -->
+    </div>
+    </div>
+    </div>
+    <script>
+        // JavaScript
+        document.addEventListener("DOMContentLoaded", function () {
+            // ハンバーガーメニューとサイドバーの要素を取得
+            const hamburgerMenu = document.getElementById("hamburger-menu");
+            const sidebar = document.getElementById("sidebar");
+            const accountMenu = document.getElementById("hidden-account-menu");
+
+            // ハンバーガーメニューをクリックしたときの処理
+            hamburgerMenu.addEventListener("click", function () {
+                // サイドバーに "active" クラスがあれば削除し、なければ追加する
+                if (sidebar.classList.contains("active")) {
+                    hamburgerMenu.classList.remove("active");
+                    sidebar.classList.remove("active");
+                    accountMenu.classList.remove("active");
+                } else {
+                    hamburgerMenu.classList.add("active");
+                    sidebar.classList.add("active");
+                    accountMenu.classList.add("active");
+                }
+            });
+        });
+
+    </script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>

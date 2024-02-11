@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'highschool.apps.HighschoolConfig',
     'university.apps.UniversityConfig',
     'numberplate.apps.NumberPlateConfig',
+    'city_bus.apps.CityBusConfig',
 ]
 
 MIDDLEWARE = [
